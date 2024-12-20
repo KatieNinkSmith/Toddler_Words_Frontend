@@ -3,7 +3,15 @@ import AudioPlayer from "../components/AudioPlayer";
 import CurrentWordIndex from "../components/CurrentWordIndex";
 
 function Colors() {
-  const words = ["Red", "Blue", "Yellow", "Green", "Purple", "Black", "White"];
+  const words = [
+    { word: "Red" },
+    { word: "Blue" },
+    { word: "Yellow" },
+    { word: "Green" },
+    { word: "Purple" },
+    { word: "Black" },
+    { word: "White" },
+  ];
   const API_KEY = import.meta.env.VITE_YOUR_API_KEY;
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -12,6 +20,12 @@ function Colors() {
   const handleWordChange = (newIndex) => {
     setCurrentWordIndex(newIndex);
   };
+
+  // const getBackgroundColor = () => {
+  //   return words[currentWordIndex];
+  // };
+
+  // const backgroundColor = getBackgroundColor();
 
   return (
     <div

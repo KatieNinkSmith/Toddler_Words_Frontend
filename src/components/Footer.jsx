@@ -4,10 +4,10 @@ import { Link } from "react-router";
 function Footer() {
   return (
     <div>
-      <h4>
+      <p>
         All images are courtesy of{" "}
         <Link to={"https://unsplash.com/"}>unsplash.com</Link>
-      </h4>
+      </p>
     </div>
   );
 }

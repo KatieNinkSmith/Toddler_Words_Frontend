@@ -2,8 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const AudioPlayer = ({ currentWordIndex }) => {
+  // console.log(currentWordIndex.word);
   const [audioURL, setAudioURL] = useState("");
-  const word = currentWordIndex.toLowerCase();
+  const word = currentWordIndex.word;
+  word.toLowerCase();
 
   useEffect(() => {
     const getAudio = async () => {
@@ -63,7 +65,7 @@ const AudioPlayer = ({ currentWordIndex }) => {
               width: "200px",
               fontSize: "40px",
               padding: "15px",
-              margin: "10px",
+              margin: "100px",
             }}
           >
             PLAY

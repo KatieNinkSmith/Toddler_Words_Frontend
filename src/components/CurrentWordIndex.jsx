@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function CurrentWordIndex({ words, onWordChange }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentImage, setCurrentImage] = useState("");
+
+  // Update current image based on currentWordIndex
+  useEffect(() => {
+    if (words.length > 0) {
+      const currentWord = words[currentWordIndex];
+      setCurrentImage(currentWord?.image || ""); // Update the image based on the current word
+      console.log(currentImage);
+    }
+  }, [currentWordIndex, words]); // Only run when currentWordIndex or words change
 
   const nextWord = () => {
     setCurrentWordIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % words.length;
+      const newIndex = (prevIndex + 1) % words.length; // Ensure circular navigation
       onWordChange(newIndex); // Notify parent component about the change
       return newIndex;
     });
@@ -13,20 +23,21 @@ function CurrentWordIndex({ words, onWordChange }) {
 
   const prevWord = () => {
     setCurrentWordIndex((prevIndex) => {
-      const newIndex = (prevIndex - 1 + words.length) % words.length;
+      const newIndex = (prevIndex - 1 + words.length) % words.length; // Ensure circular navigation
       onWordChange(newIndex); // Notify parent component about the change
       return newIndex;
     });
   };
 
-  const getBackgroundColor = () => {
-    return words[currentWordIndex];
-  };
-
-  const backgroundColor = getBackgroundColor();
-
   return (
-    <div style={{ backgroundColor: backgroundColor }} className="carousel">
+    <div
+      className="carousel"
+      style={{
+        backgroundImage: currentImage,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <button
         onClick={prevWord}
         style={{
@@ -38,7 +49,7 @@ function CurrentWordIndex({ words, onWordChange }) {
       >
         Previous
       </button>
-      <h2 style={{ fontSize: "200px" }}>{words[currentWordIndex]}</h2>
+      <h2 style={{ fontSize: "200px" }}>{words[currentWordIndex]?.word}</h2>
       <button
         onClick={nextWord}
         style={{
