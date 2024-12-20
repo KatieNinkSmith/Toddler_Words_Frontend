@@ -53,11 +53,6 @@ const words = [
     image:
       'url("https://plus.unsplash.com/premium_photo-1661878515974-9455f7e283de?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmVhcnxlbnwwfHwwfHx8MA%3D%3D")',
   },
-  {
-    word: "Hippopotamus",
-    image:
-      'url("https://images.unsplash.com/photo-1517378115181-68661008880d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTEwfG11c2luZ3NfZHJvaW58MHx8MHx8fDA%3D")',
-  },
 ];
 
 export default words;

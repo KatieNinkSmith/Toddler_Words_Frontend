@@ -7,19 +7,9 @@ function Animals() {
   const [currentImage, setCurrentImage] = useState();
   const [currentWordIndex, setCurrentWordIndex] = useState(0); // Initial index of the current word
 
-  // console.log(animals);
-  // for (let i = 0; i < animals.length; i++) {
-  //   console.log(animals[i].animal);
-  //   words.push(animals[i].animal);
-  //   if (animals[i].animal == currentWordIndex) {
-  //     console.log(animals[i].image, "how is this working");
-  //     setCurrentImage(animals[i].image);
-  //   }
-  // }
-  // console.log(currentImage);
-
   // Handle changes to the word index from the CurrentWordIndex component
-  const handleWordChange = (newIndex) => {
+  const handleWordChange = (newIndex, image) => {
+    setCurrentImage(image); // Set the current image
     setCurrentWordIndex(newIndex);
   };
 

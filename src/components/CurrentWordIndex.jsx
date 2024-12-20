@@ -2,21 +2,18 @@ import { useState, useEffect } from "react";
 
 function CurrentWordIndex({ words, onWordChange }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentImage, setCurrentImage] = useState("");
 
-  // Update current image based on currentWordIndex
   useEffect(() => {
-    if (words.length > 0) {
-      const currentWord = words[currentWordIndex];
-      setCurrentImage(currentWord?.image || ""); // Update the image based on the current word
-      console.log(currentImage);
-    }
-  }, [currentWordIndex, words]); // Only run when currentWordIndex or words change
+    // This effect ensures that whenever currentWordIndex changes, we notify the parent (Colors component)
+    const currentImage = words[currentWordIndex]?.image;
+    onWordChange(currentWordIndex, currentImage);
+  }, [currentWordIndex, words, onWordChange]); // Effect will run whenever currentWordIndex changes
 
   const nextWord = () => {
     setCurrentWordIndex((prevIndex) => {
       const newIndex = (prevIndex + 1) % words.length; // Ensure circular navigation
-      onWordChange(newIndex); // Notify parent component about the change
+      const newImage = words[newIndex]?.image;
+      onWordChange(newIndex, newImage); // Notify parent component about the change
       return newIndex;
     });
   };
@@ -24,20 +21,14 @@ function CurrentWordIndex({ words, onWordChange }) {
   const prevWord = () => {
     setCurrentWordIndex((prevIndex) => {
       const newIndex = (prevIndex - 1 + words.length) % words.length; // Ensure circular navigation
-      onWordChange(newIndex); // Notify parent component about the change
+      const newImage = words[newIndex]?.image;
+      onWordChange(newIndex, newImage); // Notify parent component about the change
       return newIndex;
     });
   };
 
   return (
-    <div
-      className="carousel"
-      style={{
-        backgroundImage: currentImage,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <div className="carousel">
       <button
         onClick={prevWord}
         style={{
