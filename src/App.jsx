@@ -5,7 +5,7 @@ import Animals from "./pages/Animals";
 import Food from "./pages/Food";
 import Colors from "./pages/Colors";
 import Places from "./pages/Places";
-import ABCs from "./pages/ABCs";
+import Counting from "./pages/Counting";
 import Footer from "./components/Footer.jsx";
 
 import "./App.css";
@@ -20,7 +20,7 @@ function App() {
         <Route path="/food" element={<Food />} />
         <Route path="/colors" element={<Colors />} />
         <Route path="/places" element={<Places />} />
-        <Route path="/ABCs" element={<ABCs />} />
+        <Route path="/counting" element={<Counting />} />
       </Routes>
       <Footer />
     </>

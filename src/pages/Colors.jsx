@@ -20,7 +20,7 @@ function Colors() {
   // Handle changes to the word index from the CurrentWordIndex component
   const handleWordChange = (newIndex) => {
     setCurrentWordIndex(newIndex);
-    console.log("Updated index:", newIndex); // Log the new index
+    // console.log("Updated index:", newIndex); // Log the new index
   };
   // console.log(words[currentWordIndex], "which one!");
   // console.log(words[currentWordIndex].word.toLowerCase(), "or this one!");
@@ -37,7 +37,7 @@ function Colors() {
         backgroundColor: backgroundColor, // Adjusted to set the background color using the word
       }}
     >
-      <h1>Animals</h1>
+      <h1>COLORS</h1>
       <CurrentWordIndex words={words} onWordChange={handleWordChange} />
       <AudioPlayer currentWordIndex={words[currentWordIndex]} />
     </div>

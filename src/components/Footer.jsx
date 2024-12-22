@@ -4,7 +4,7 @@ import { Link } from "react-router";
 function Footer() {
   return (
     <div>
-      <p>
+      <p style={{ fontSize: "50%" }}>
         All images are courtesy of{" "}
         <Link to={"https://unsplash.com/"}>unsplash.com</Link>
       </p>

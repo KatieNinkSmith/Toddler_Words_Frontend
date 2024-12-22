@@ -2,12 +2,12 @@ const words = [
   {
     word: "Cat",
     image:
-      "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGNhdHxlbnwwfHwwfHx8MA%3D%3D",
+      "https://plus.unsplash.com/premium_photo-1707353402061-c31b6ba8562e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fGNhdHxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     word: "Dog",
     image:
-      "https://images.unsplash.com/photo-1544568104-5b7eb8189dd4?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTcyfHxkb2d8ZW58MHx8MHx8fDA%3D",
+      "https://plus.unsplash.com/premium_photo-1668114375111-e90b5e975df6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZG9nc3xlbnwwfHwwfHx8MA%3D%3Ds",
   },
   {
     word: "Horse",
@@ -18,7 +18,7 @@ const words = [
   {
     word: "Pig",
     image:
-      "https://images.unsplash.com/photo-1508590080732-0f4cddbb86ae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fHBpZ3xlbnwwfHwwfHx8MA%3D%3D",
+      "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGlnfGVufDB8fDB8fHww",
   },
 
   {
@@ -41,7 +41,7 @@ const words = [
   {
     word: "Elephant",
     image:
-      "https://images.unsplash.com/photo-1544211412-2a32426e7fd5?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fEVsZXBoYW50fGVufDB8fDB8fHww",
+      "https://images.unsplash.com/photo-1526226128118-9ef71fc2f34b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGVsZXBoYW50fGVufDB8fDB8fHww",
   },
   {
     word: "Crab",

@@ -14,7 +14,7 @@ function Animals() {
 
   return (
     <div>
-      <h1>A</h1>
+      <h1>ANIMALS</h1>
       <CurrentWordIndex words={words} onWordChange={handleWordChange} />
       <AudioPlayer currentWordIndex={words[currentWordIndex]} />
     </div>

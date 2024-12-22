@@ -9,8 +9,8 @@ my plan is to have a home page with different things ABC's, colors, animals, and
 I will add navigation to go back or home(start over).
 
 All audio is pulled from an API https://dictionaryapi.dev/
-Every audio clip is imported and reviewed if it exists for the word and unsure the audio clip is simply the word pronunciation.
-All images are hand selected and reviewed for appropriateness for toddler to preschool age. I did pull images from unsplash's API however their matching and appropriateness is not garentied like hand picking each image.
+Every audio clip is imported and reviewed if it exists for the word and ensure the audio clip is simply the word pronunciation.
+All images are hand selected and reviewed for appropriateness for toddler to preschool age. I did pull images from unsplash's API however their matching and appropriateness is not guaranteed like hand picking each image.
 
 Colors are most rainbow colors however orange failed to have an audio file, in the future I think i would add audio files, or find a more comprehensive API.
 
@@ -19,6 +19,9 @@ Animals are a large variety from around the world.
 Food is close to the first 100 foods your child should try.
 
 Counting is 1-10.
+
+Alphabet I can not find the photonic sounds of each letter I will have to look for another api or look at adding this myself.
+Page nav image https://plus.unsplash.com/premium_photo-1666739032615-ecbd14dfb543?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWxwaGFiZXR8ZW58MHx8MHx8fDA%3D
 
 Requirements
 Your application must meet these requirements to pass (this it your Minimum Viable Product):

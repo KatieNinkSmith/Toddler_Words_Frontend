@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AudioPlayer from "./AudioPlayer";
 
 function CurrentWordIndex({ words, onWordChange }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -54,7 +55,27 @@ function CurrentWordIndex({ words, onWordChange }) {
       >
         Previous
       </button>
-      <h2 style={{ fontSize: "500%" }}>{words[currentWordIndex]?.word}</h2>
+      <div
+        className="main"
+        style={{
+          display: "flex",
+          justifyContent: "spaceBetween",
+          flexDirection: "column",
+          flex: "center",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "500%",
+            textShadow: "1px 1px white",
+            marginTop: "10px",
+            marginBottom: "250px",
+          }}
+        >
+          {words[currentWordIndex]?.word}
+        </h2>
+        {/* <AudioPlayer currentWordIndex={words[currentWordIndex]} /> */}
+      </div>
       <button
         onClick={nextWord}
         style={{

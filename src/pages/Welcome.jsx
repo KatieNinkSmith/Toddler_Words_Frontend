@@ -12,8 +12,8 @@ function Welcome() {
     'url("https://plus.unsplash.com/premium_photo-1722100465381-a6b9ad3cb996?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHpvbyUyMGFuaW1hbHN8ZW58MHx8MHx8fDA%3D")';
   const foodUrl =
     'url("https://plus.unsplash.com/premium_photo-1734291397771-1e65a74f3e4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dG9kZGxlciUyMGZvb2R8ZW58MHx8MHx8fDA%3D")';
-  const alphabetUrl =
-    'url("https://plus.unsplash.com/premium_photo-1666739032615-ecbd14dfb543?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWxwaGFiZXR8ZW58MHx8MHx8fDA%3D")';
+  const countingUrl =
+    'url("https://images.unsplash.com/photo-1568828668638-b1b4014d91a2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDEwfHx8ZW58MHx8fHx8")';
 
   return (
     <div>
@@ -59,17 +59,17 @@ function Welcome() {
             Food
           </div>
         </Link>
-        <Link to="/alphabet">
+        <Link to="/counting">
           <div
             style={{
-              backgroundImage: alphabetUrl,
+              backgroundImage: countingUrl,
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               color: "black",
               fontSize: "50px",
             }}
           >
-            Alphabet
+            Numbers
           </div>
         </Link>
         {/* <Link to="/places">
