@@ -58,7 +58,7 @@ const AudioPlayer = ({ currentWordIndex }) => {
               width: "200px",
               fontSize: "40px",
               padding: "15px",
-              margin: "100px",
+              marginBottom: "20px",
             }}
           >
             PLAY

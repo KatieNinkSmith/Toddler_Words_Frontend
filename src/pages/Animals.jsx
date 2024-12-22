@@ -9,19 +9,12 @@ function Animals() {
 
   // Handle changes to the word index from the CurrentWordIndex component
   const handleWordChange = (newIndex, image) => {
-    setCurrentImage(image); // Set the current image
     setCurrentWordIndex(newIndex);
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: currentImage,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      <h1>Animals</h1>
+    <div>
+      <h1>A</h1>
       <CurrentWordIndex words={words} onWordChange={handleWordChange} />
       <AudioPlayer currentWordIndex={words[currentWordIndex]} />
     </div>
