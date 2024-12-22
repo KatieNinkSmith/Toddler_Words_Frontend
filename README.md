@@ -4,6 +4,22 @@ URL for deployed site
 
 ---
 
+my plan is to have a home page with different things ABC's, colors, animals, and food when you click it says the word outloud and then after a short delay goes to another page with a carousel of letters/words based on the catagory chosen. Each catagory is a new page and displays the letter/word and image, when the word or image are touched it will play the word sound.
+
+I will add navigation to go back or home(start over).
+
+All audio is pulled from an API https://dictionaryapi.dev/
+Every audio clip is imported and reviewed if it exists for the word and unsure the audio clip is simply the word pronunciation.
+All images are hand selected and reviewed for appropriateness for toddler to preschool age. I did pull images from unsplash's API however their matching and appropriateness is not garentied like hand picking each image.
+
+Colors are most rainbow colors however orange failed to have an audio file, in the future I think i would add audio files, or find a more comprehensive API.
+
+Animals are a large variety from around the world.
+
+Food is close to the first 100 foods your child should try.
+
+Counting is 1-10.
+
 Requirements
 Your application must meet these requirements to pass (this it your Minimum Viable Product):
 
@@ -19,10 +35,6 @@ Usage instructions, if relevant.
 Unsolved problems.
 etc.
 Use AJAX to make a request to an external data source like OMDBapi, and insert some of the data retrieved into the DOM.
-
-my plan is to have a home page with different things ABC's, colors, animals, and food when you click it says the word outloud and then after a short delay goes to another page with a carousel of letters/words based on the catagory chosen. Each catagory is a new page and displays the letter/word and image, when the word or image are touched it will play the word sound.
-
-I will add navigation to go back or home(start over).
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

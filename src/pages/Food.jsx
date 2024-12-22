@@ -14,24 +14,9 @@ function Food() {
   };
 
   return (
-    <div
-    // style={{
-    //   backgroundImage: currentImage,
-    //   backgroundSize: "cover",
-    //   backgroundRepeat: "no-repeat",
-    // }}
-    >
+    <div>
       <h1>Food</h1>
       <CurrentWordIndex words={words} onWordChange={handleWordChange} />
-      {/* Only show the image if currentImage is set */}
-      {/* {currentImage && (
-        <img
-          src={currentImage}
-          alt={words[currentWordIndex]}
-          style={{ width: "50%", height: "auto" }}
-        />
-      )} */}
-
       <AudioPlayer currentWordIndex={words[currentWordIndex]} />
     </div>
   );
