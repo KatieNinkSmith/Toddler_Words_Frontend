@@ -1,6 +1,8 @@
 # React + Vite
 
 URL for deployed site
+both are currently giving white screens working to trouble shoot.
+https://toddler-words.netlify.app/
 https://katieninksmith.github.io/toddler-words/
 
 ---
