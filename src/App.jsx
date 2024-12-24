@@ -15,7 +15,7 @@ function App() {
     <>
       <Nav />
       <Routes>
-        <base path="/" element={<Welcome />} />
+        <Route path="/" element={<Welcome />} />
         <Route path="/animals" element={<Animals />} />
         <Route path="/food" element={<Food />} />
         <Route path="/colors" element={<Colors />} />
