@@ -1,6 +1,7 @@
 # React + Vite
 
 URL for deployed site
+https://katieninksmith.github.io/toddler-words/
 
 ---
 
