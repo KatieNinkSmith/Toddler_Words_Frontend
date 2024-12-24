@@ -130,63 +130,73 @@ const words = [
   },
   {
     word: "Corn",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1692607931390-3a768f3d1a53?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGNvcm58ZW58MHx8MHx8fDA%3D",
   },
   {
     word: "Artichoke",
-    image: "",
-  },
-  {
-    word: "Edamame",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1518735869015-566a18eae4be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGFydGljaG9rZXxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     word: "Garlic",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1625229466998-42ee9c597290?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGdhcmxpY3xlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     word: "Zucchini",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1720240464180-fb4f185ccf1f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTY0fHx6dWNjaGluaXxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     word: "Onion",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1667720250309-abf176d77333?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjN8fG9uaW9ufGVufDB8fDB8fHww",
   },
   {
     word: "Asparagus",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1555704574-f9ecf4717298?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGFzcGFyYWd1c3xlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     word: "Honeydew",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1623125489492-6d3641414e37?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG9uZXlkZXd8ZW58MHx8MHx8fDA%3D",
   },
   {
     word: "Mushroom",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1602664719969-5cb83870efb3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTIzfHxtdXNocm9vbXxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     word: "Cheese",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1667645895855-2d3f7000a7be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU0fHxjaGVlc2UlMjBmb3IlMjBraWRzfGVufDB8fDB8fHww",
   },
   {
     word: "Kale",
-    image: "",
+    image:
+      "https://plus.unsplash.com/premium_photo-1702574992683-88624a546b9d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGthbGV8ZW58MHx8MHx8fDA%3D",
   },
   {
     word: "Lemon",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1454944338482-a69bb95894af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjZ8fGxlbW9ufGVufDB8fDB8fHww",
   },
   {
     word: "Celery",
-    image: "",
+    image:
+      "https://plus.unsplash.com/premium_photo-1700773416772-50a83a730f23?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y2VsZXJ5fGVufDB8fDB8fHww",
   },
   {
     word: "Peach",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1642372849578-c2142f64add6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fHBlYWNofGVufDB8fDB8fHww",
   },
   {
     word: "Fig",
-    image: "",
+    image:
+      "https://images.unsplash.com/photo-1506851141243-46bb87f2576c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGZpZ3xlbnwwfHwwfHx8MA%3D%3D",
   },
 ];
 
