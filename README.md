@@ -1,11 +1,9 @@
 # React + Vite
 
 URL for deployed site
-both are currently giving white screens working to trouble shoot.
 https://toddler-words.netlify.app/
-https://katieninksmith.github.io/toddler-words/
 
----
+## I am moving this API intigrated front end into a full stack application building a back end so users can create an account and add their own words audio recordings and images for their child to learn.
 
 my plan is to have a home page with different things ABC's, colors, animals, and food when you click it says the word outloud and then after a short delay goes to another page with a carousel of letters/words based on the catagory chosen. Each catagory is a new page and displays the letter/word and image, when the word or image are touched it will play the word sound.
 
@@ -41,6 +39,8 @@ Usage instructions, if relevant.
 Unsolved problems.
 etc.
 Use AJAX to make a request to an external data source like OMDBapi, and insert some of the data retrieved into the DOM.
+
+I am working on implementing a recording npm package I have gotten mic-recorder-to-mp3 coded into my application but there were errors with lame causing it to not function, i found mic-recorder-to-mp3-fixed fixed this issue and functions how ever it uses ScriptProcessorNode that is deprecated. I am looking in to the AudioWorkletNode that is implimented across all browsers now and looking at a recorder that has already been updated with this or how to update the functioning recorder above. I have found react-audio-voice-recorder and looking at implimenting it now.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

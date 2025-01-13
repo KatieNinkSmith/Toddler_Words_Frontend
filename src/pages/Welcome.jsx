@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import AudioPlayer from "../components/AudioPlayer";
 import { Link } from "react-router";
-import { createApi } from "unsplash-js";
+import AudioCreate from "../components/AudioRecorder";
 
 function Welcome() {
   const API_KEY = import.meta.env.VITE_access_Key;
@@ -18,7 +17,6 @@ function Welcome() {
   return (
     <div>
       <h1>Welcome</h1>
-      {/* <AudioPlayer currentWordIndex={words[currentWordIndex]} /> */}
       <div className="homeLinks">
         <Link to="/colors">
           <div
@@ -72,9 +70,6 @@ function Welcome() {
             Numbers
           </div>
         </Link>
-        {/* <Link to="/places">
-          <div>Places</div>
-        </Link> */}
       </div>
     </div>
   );

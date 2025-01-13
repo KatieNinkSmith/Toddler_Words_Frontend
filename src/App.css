@@ -1,28 +1,71 @@
 #root {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   height: 100vh;
 }
 .nav {
-  width: 100vw;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 .homeLinks {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 .homeLinks div {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin: 10px;
 }
+
+.signupLogin {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.signLogForm {
+  width: 50%;
+  margin: 30px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.profilePage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.userProfile {
+  width: 50%;
+  margin: 30px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.userAdditions {
+  width: 50%;
+  margin: 30px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .carousel {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,5 +73,6 @@
 }
 footer {
   display: flex;
-  justify-content: end;
+  justify-content: center;
+  align-items: center;
 }
