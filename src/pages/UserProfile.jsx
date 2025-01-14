@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { getUser } from "../utilities/users-services";
-import AudioCreate from "../components/AudioRecorder";
+import AddAudioElement from "../components/AudioRecorder";
 
 function UserProfile() {
   const location = useLocation();
@@ -47,7 +47,7 @@ function UserProfile() {
               <br />
               <input type="file" id="imageUpload" accept="image/*"></input>
               <br />
-              <AudioCreate />
+              <AddAudioElement />
               <br />
               <button>SAVE WORD</button>
             </form>

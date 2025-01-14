@@ -23,7 +23,6 @@
   height: 250px;
   margin: 10px;
 }
-
 .signupLogin {
   width: 100%;
   display: flex;
@@ -63,6 +62,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border: 2px solid black;
 }
 .carousel {
   width: 100%;

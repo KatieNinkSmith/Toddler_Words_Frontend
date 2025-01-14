@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import AudioCreate from "../components/AudioRecorder";
 
 function Welcome() {
-  const API_KEY = import.meta.env.VITE_access_Key;
-  const words = ["Welcome", "Colors", "Animals", "Food", "Places", "Alphabet"];
   const colorUrl =
     'url("https://images.unsplash.com/photo-1500042600524-37ecb686c775?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fHJhaW5ib3d8ZW58MHx8MHx8fDA%3D")';
   const animalUrl =

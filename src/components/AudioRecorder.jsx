@@ -1,38 +1,43 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { AudioRecorder } from "react-audio-voice-recorder";
 
-export default function AudioCreate() {
-  const addAudioElement = (blob) => {
-    const url = URL.createObjectURL(blob);
-    const audio = document.createElement("audio");
-    audio.src = url;
-    audio.controls = true;
-    document.body.appendChild(audio);
+const ReactDOM = require("react-dom");
+
+function AddAudioElement() {
+  const [audioUrl, setAudioUrl] = useState(null);
+
+  // This will be triggered when the recording is complete
+  const handleRecordingComplete = (blob) => {
+    const url = URL.createObjectURL(blob); // create a URL for the recorded audio
+    setAudioUrl(url); // Store the URL for playback
   };
 
   return (
     <div>
-      <AudioRecorder
-        onRecordingComplete={addAudioElement}
-        audioTrackConstraints={{
-          noiseSuppression: true,
-          echoCancellation: true,
-          // autoGainControl,
-          // channelCount,
-          // deviceId,
-          // groupId,
-          // sampleRate,
-          // sampleSize,
-        }}
-        onNotAllowedOrFound={(err) => console.table(err)}
-        downloadOnSavePress={true}
-        downloadFileExtension="webm"
-        mediaRecorderOptions={{
-          audioBitsPerSecond: 128000,
-        }}
-        // showVisualizer={true}
-      />
-      <br />
+      <React.StrictMode>
+        <AudioRecorder
+          onRecordingComplete={handleRecordingComplete}
+          audioTrackConstraints={{
+            noiseSuppression: true,
+            echoCancellation: true,
+          }}
+          downloadOnSavePress={false}
+          downloadFileExtension="webm"
+        />
+      </React.StrictMode>
+
+      {audioUrl && (
+        <audio controls>
+          <source src={audioUrl} type="audio/webm" />
+          Your browser does not support the audio element.
+        </audio>
+      )}
     </div>
   );
 }
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <AddAudioElement />
+);
+
+export default AddAudioElement;
