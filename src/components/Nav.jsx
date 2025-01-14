@@ -1,6 +1,6 @@
-import { Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router"; // Ensure correct import from 'react-router-dom'
 import { useState, useEffect } from "react";
-import { logOut } from "../utilities/users-services.js";
+import { logOut } from "../utilities/users-services";
 
 function Nav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,7 +18,7 @@ function Nav() {
 
   function handleLogOut() {
     logOut();
-    setUser(null); // Update user state to trigger a re-render
+    setIsLoggedIn(false); // Set logged-in state to false upon logging out
   }
 
   return (
@@ -28,17 +28,33 @@ function Nav() {
       </Link>
       {isLoggedIn ? (
         <>
+          {location.pathname === "/welcome" ? (
+            ""
+          ) : (
+            <Link to="/profile">
+              <div>PROFILE</div>
+            </Link>
+          )}
+        </>
+      ) : (
+        <>
+          <Link to="/loginsignup">
+            <div>LOG IN</div>
+          </Link>
           <Link to="/profile">
             <div>PROFILE</div>
           </Link>
-          <Link to="" onClick={handleLogOut}>
-            <div>SIGN OUT</div>
-          </Link>
+          {/* {location.pathname !== "/profile" && (
+            <>
+              <Link to="/profile">
+                <div>PROFILE</div>
+              </Link>
+              <Link to="" onClick={handleLogOut}>
+                <div>SIGN OUT</div>
+              </Link>
+            </>
+          )} */}
         </>
-      ) : (
-        <Link to="/loginsignup">
-          <div>LOG IN</div>
-        </Link>
       )}
     </div>
   );

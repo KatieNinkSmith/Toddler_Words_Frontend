@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AudioRecorder } from "react-audio-voice-recorder";
-
-const ReactDOM = require("react-dom");
 
 function AddAudioElement() {
   const [audioUrl, setAudioUrl] = useState(null);
@@ -14,30 +12,24 @@ function AddAudioElement() {
 
   return (
     <div>
-      <React.StrictMode>
-        <AudioRecorder
-          onRecordingComplete={handleRecordingComplete}
-          audioTrackConstraints={{
-            noiseSuppression: true,
-            echoCancellation: true,
-          }}
-          downloadOnSavePress={false}
-          downloadFileExtension="webm"
-        />
-      </React.StrictMode>
+      <AudioRecorder
+        onRecordingComplete={handleRecordingComplete}
+        audioTrackConstraints={{
+          noiseSuppression: true,
+          echoCancellation: true,
+        }}
+        downloadOnSavePress={false}
+        downloadFileExtension="mp3"
+      />
 
       {audioUrl && (
         <audio controls>
-          <source src={audioUrl} type="audio/webm" />
+          <source src={audioUrl} type="audio/mp3" />
           Your browser does not support the audio element.
         </audio>
       )}
     </div>
   );
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <AddAudioElement />
-);
 
 export default AddAudioElement;
