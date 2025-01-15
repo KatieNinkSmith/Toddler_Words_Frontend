@@ -28,32 +28,15 @@ function Nav() {
       </Link>
       {isLoggedIn ? (
         <>
-          {location.pathname === "/welcome" ? (
-            ""
-          ) : (
-            <Link to="/profile">
-              <div>PROFILE</div>
-            </Link>
-          )}
+          <Link to="/profile">
+            <div>PROFILE</div>
+          </Link>
         </>
       ) : (
         <>
           <Link to="/loginsignup">
             <div>LOG IN</div>
           </Link>
-          <Link to="/profile">
-            <div>PROFILE</div>
-          </Link>
-          {/* {location.pathname !== "/profile" && (
-            <>
-              <Link to="/profile">
-                <div>PROFILE</div>
-              </Link>
-              <Link to="" onClick={handleLogOut}>
-                <div>SIGN OUT</div>
-              </Link>
-            </>
-          )} */}
         </>
       )}
     </div>
