@@ -1,14 +1,12 @@
 import { useState } from "react";
 import userServices from "../utilities/users-services";
-import { useNavigate } from "react-router"; // allows for navigation without clicking
-
+import { useNavigate } from "react-router"; // allows for navigation without clicking on sign in
 function LoginForm() {
   const [user, setUser] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -16,14 +14,11 @@ function LoginForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   }
-
   async function handleSubmit(e) {
     e.preventDefault();
     const credentials = { ...formData };
     console.log(credentials);
     try {
-      // the promise returned by the login service method will resolve to the user
-      // object includes in the payload of the JWT
       const user = await userServices.login(credentials);
       console.log(user);
       setUser(user.name);
@@ -69,5 +64,4 @@ function LoginForm() {
     </>
   );
 }
-
 export default LoginForm;

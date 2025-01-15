@@ -4,14 +4,10 @@ import AudioPlayer from "../components/AudioPlayer";
 import words from "../../data/counting";
 
 function Counting() {
-  const [currentImage, setCurrentImage] = useState();
-  const [currentWordIndex, setCurrentWordIndex] = useState(0); // Initial index of the current word
-
-  // Handle changes to the word index from the CurrentWordIndex component
-  const handleWordChange = (newIndex, image) => {
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const handleWordChange = (newIndex) => {
     setCurrentWordIndex(newIndex);
   };
-
   return (
     <div>
       <h1>NUMBERS</h1>
@@ -20,5 +16,4 @@ function Counting() {
     </div>
   );
 }
-
 export default Counting;

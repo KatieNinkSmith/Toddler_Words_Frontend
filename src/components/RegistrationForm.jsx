@@ -1,8 +1,10 @@
 import { useState } from "react";
 // adding in auth, i am importing SignUp from utilities
 import { signUp } from "../utilities/users-services";
+import { useNavigate } from "react-router"; // allows for navigation without clicking on sign in
 
-function SignUpForm(props) {
+function SignUpForm() {
+  const [user, setUser] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -10,13 +12,14 @@ function SignUpForm(props) {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   };
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log(formData);
     // ** this is where we will eventually add this to our database
@@ -28,12 +31,15 @@ function SignUpForm(props) {
       console.log(submitData);
       const user = await signUp(submitData);
       console.log(user);
-      props.setUser(user);
+      setUser(user);
+      navigate("/profile", { state: { user } });
     } catch (err) {
-      // ! later add messages based on what actually failed
-      setError("Sign up failed - try again");
+      console.log("Error caught", err);
+      const errorMessage =
+        err.response?.data?.message || "Log in Failed - Try Again";
+      setError(errorMessage);
     }
-  };
+  }
 
   return (
     <>
