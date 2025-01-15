@@ -21,6 +21,12 @@ function Nav() {
     setIsLoggedIn(false); // Set logged-in state to false upon logging out
   }
 
+  if (isLoggedIn) {
+    <Link to="" onClick={handleLogOut}>
+      <div>SIGN OUT</div>
+    </Link>;
+  }
+
   return (
     <div className="nav">
       <Link to="/">
@@ -28,16 +34,21 @@ function Nav() {
       </Link>
       {isLoggedIn ? (
         <>
-          <Link to="/profile">
-            <div>PROFILE</div>
-          </Link>
-        </>
-      ) : (
-        <>
           <Link to="/loginsignup">
             <div>LOG IN</div>
           </Link>
+          {location.pathname === "/welcome" ? (
+            ""
+          ) : (
+            <Link to="/profile">
+              <div>PROFILE</div>
+            </Link>
+          )}
         </>
+      ) : (
+          <Link to="/profile">
+            <div>PROFILE</div>
+          </Link>
       )}
     </div>
   );
