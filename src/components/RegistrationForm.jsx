@@ -13,6 +13,7 @@ function SignUpForm() {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
