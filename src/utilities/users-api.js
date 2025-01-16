@@ -26,3 +26,7 @@ export async function signUp(userData) {
 export async function login(credentials) {
   return makeApiCall(URL + "/login", "POST", credentials);
 }
+
+export async function addWords(formData) {
+  return makeApiCall(URL + `/${formData.userId}/addWords`, "POST", formData);
+}
