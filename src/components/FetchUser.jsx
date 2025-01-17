@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
-import getUser from "../utilities/users-services";
+import { getUser } from "../utilities/users-services";
 
 function FetchUser() {
   const location = useLocation();

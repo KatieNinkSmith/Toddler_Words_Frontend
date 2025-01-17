@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FetchUser from "../components/FetchUser";
 import AudioRecord from "../components/AudioRecorder";
+import { createWord } from "../utilities/words-services";
 
 function UserProfile() {
   const { user, loading } = FetchUser();
@@ -24,13 +25,13 @@ function UserProfile() {
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
+    // console.log(formData);
   }
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, image: file });
-    console.log(formData);
+    // console.log(formData);
   };
 
   const handleRecordingComplete = async (mp3Blob) => {
@@ -38,29 +39,31 @@ function UserProfile() {
       // Directly use the Blob URL, no need to process it
       setFormData({ ...formData, audio: mp3Blob }); // Update formData with the audio URL (Blob URL)
     }
-    console.log(formData);
+    // console.log(formData);
   };
 
   // TODO
   const handleSaveWord = async (e) => {
-    console.log(formData); // ! corect info
+    // console.log(formData); // ! corect info
     e.preventDefault();
     try {
-      console.log(formData);
+      const submitWord = { ...formData };
+      const word = await createWord(submitWord);
+      // // console.log(formData);
 
-      const response = await fetch("http://localhost:5050/api/words", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      console.log(response);
-      // Handle the response from the backend
-      if (response.ok) {
-        console.log("Word saved successfully!");
-        // Handle success (maybe show a success message or clear the form)
-      } else {
-        console.error("Failed to save word:", response.statusText);
-      }
+      // const response = await fetch("http://localhost:5050/api/words", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(formData),
+      // });
+      // // console.log(response);
+      // // Handle the response from the backend
+      // if (response.ok) {
+      //   console.log("Word saved successfully!");
+      //   // Handle success (maybe show a success message or clear the form)
+      // } else {
+      //   console.error("Failed to save word:", response.statusText);
+      // }
     } catch (error) {
       console.error("Error sending data to backend:", error);
     }
@@ -94,7 +97,7 @@ function UserProfile() {
             <option>family</option>
             <option>places</option>
             <option>things</option>
-            <option>clothes</option>
+            <option>clothing</option>
           </select>
           {/* <br />
           <label>Upload an image for the word</label>
