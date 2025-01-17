@@ -21,19 +21,35 @@ export async function createWord(formData) {
   }
 }
 
-// export async function login(credentials) {
-//   console.log(credentials)
-//   const res = await fetch(URL + "/login", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(credentials),
-//   });
-//   console.log(res)
-//   // check if successfuk
-//   if (res.ok) {
-//     // this will resolve to the JWT
-//     return res.json();
-//   } else {
-//     throw new Error("Invalid Log In");
-//   }
-// }
+export async function getUserWords(userId) {
+  const res = await fetch(URL + `/${userId}`, {
+    method: "GET",
+  });
+  console.log(res);
+  // check if successful
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("No words created yet");
+  }
+}
+
+export async function editWord(wordId) {
+  const res = await fetch(URL + `/${wordId}`, { method: "PUT" });
+  console.log(res);
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("Word is not edited");
+  }
+}
+
+export async function deleteWord(wordId) {
+  const res = await fetch(URL + `/${wordId}`, { method: "DELETE" });
+  console.log(res);
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("Word is not deleted");
+  }
+}

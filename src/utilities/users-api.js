@@ -3,6 +3,8 @@
 const LOCAL_URL = "http://localhost:5050";
 const API_URL = "/api/users";
 const URL = LOCAL_URL + API_URL;
+
+// ** sign up function
 export async function signUp(userData) {
   // fetch uses an options object as a second arg to make requests other then basic GET requests, include data, headers, ect
   const res = await fetch(URL, {
@@ -19,15 +21,17 @@ export async function signUp(userData) {
     throw new Error("Invalid Sign Up");
   }
 }
+
+// ** login function
 export async function login(credentials) {
-  console.log(credentials)
+  console.log(credentials);
   const res = await fetch(URL + "/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
-  console.log(res)
-  // check if successfuk
+  console.log(res);
+  // check if successful
   if (res.ok) {
     // this will resolve to the JWT
     return res.json();

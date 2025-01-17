@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import FetchUser from "../components/FetchUser";
 import AudioRecord from "../components/AudioRecorder";
 import { createWord } from "../utilities/words-services";
+import UsersWords from "../components/UsersWords";
 
 function UserProfile() {
   const { user, loading } = FetchUser();
-  console.log(user);
+  // console.log(user);
   const [formData, setFormData] = useState({
     word: "",
     category: "Family",
@@ -113,6 +114,9 @@ function UserProfile() {
           <br />
           <button type="submit">SAVE WORD</button>
         </form>
+      </div>
+      <div>
+        <UsersWords />
       </div>
     </div>
   );
