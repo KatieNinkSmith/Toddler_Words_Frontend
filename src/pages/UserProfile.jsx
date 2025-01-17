@@ -10,14 +10,14 @@ function UserProfile() {
     category: "Family",
     image: null,
     audio: null,
-    _id: user,
+    user: user,
   });
 
   useEffect(() => {
     if (user) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        _id: user._id, // Set user._id once it's available
+        user: user._id, // Set user._id once it's available
       }));
     }
   }, [user]); // Runs when user data changes
@@ -41,45 +41,17 @@ function UserProfile() {
     console.log(formData);
   };
 
-  // TODO this is not working and now its acting as if they can not communicate at all even to login which this should not effect
+  // TODO
   const handleSaveWord = async (e) => {
     console.log(formData); // ! corect info
     e.preventDefault();
-
-    // Check if all fields are filled
-    // if (
-    //   !formData.word ||
-    //   !formData.category ||
-    //   !formData.image ||
-    //   !formData.userId
-    // ) {
-    //   // alert("Please fill out all fields and upload image.");
-    //   return;
-    // }
-
-    // // Create a new FormData object
-    // const formDataToSend = new FormData();
-    // // Append other fields (word, category, image, userId)
-    // formDataToSend.append("word", formData.word);
-    // formDataToSend.append("category", formData.category);
-    // formDataToSend.append("_id", formData._id);
-    // // Append the image file
-    // if (formData.image) {
-    //   formDataToSend.append("image", formData.image);
-    // }
-    // // Fetch the audio Blob from the Blob URL
-    // const audioBlob = await fetch(formData.audio).then((response) =>
-    //   response.blob()
-    // );
-
-    // // Append the audio Blob (converted from Blob URL)
-    // formDataToSend.append("audio", audioBlob, "audio.mp3");
-    // Now send the FormData to your backend
     try {
       console.log(formData);
+
       const response = await fetch("http://localhost:5050/api/words", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
       console.log(response);
       // Handle the response from the backend
@@ -119,12 +91,12 @@ function UserProfile() {
             onChange={handleChange}
             required
           >
-            <option>Family</option>
-            <option>Places</option>
-            <option>Things</option>
-            <option>Clothes</option>
+            <option>family</option>
+            <option>places</option>
+            <option>things</option>
+            <option>clothes</option>
           </select>
-          <br />
+          {/* <br />
           <label>Upload an image for the word</label>
           <br />
           <input
@@ -134,7 +106,7 @@ function UserProfile() {
             required
           />
           <br />
-          <AudioRecord onRecordingComplete={handleRecordingComplete} />
+          <AudioRecord onRecordingComplete={handleRecordingComplete} /> */}
           <br />
           <button type="submit">SAVE WORD</button>
         </form>

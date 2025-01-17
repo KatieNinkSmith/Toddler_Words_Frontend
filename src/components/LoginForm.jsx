@@ -22,7 +22,7 @@ function LoginForm() {
       const user = await userServices.login(credentials);
       console.log(user);
       setUser(user.name);
-      navigate("/profile/", { state: { user } }); // first arg is location to navigate to, second arg is the location it stores the locations your are navigating to and from.
+      navigate("/profile", { state: { user } }); // first arg is location to navigate to, second arg is the location it stores the locations your are navigating to and from.
     } catch (err) {
       console.log("Error caught", err);
       const errorMessage =
