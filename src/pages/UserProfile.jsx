@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import FetchUser from "../components/FetchUser";
 import AudioRecord from "../components/AudioRecorder";
 import { createWord } from "../utilities/words-services";
@@ -6,7 +6,6 @@ import UsersWords from "../components/UsersWords";
 
 function UserProfile() {
   const { user, loading } = FetchUser();
-  // console.log(user);
   const [formData, setFormData] = useState({
     word: "",
     category: "family",
@@ -14,6 +13,8 @@ function UserProfile() {
     audio: null,
     user: user,
   });
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -26,52 +27,46 @@ function UserProfile() {
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // console.log(formData);
   }
-
+  // TODO work on image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, image: file });
-    // console.log(formData);
   };
-
+  // TODO work on blob
   const handleRecordingComplete = async (mp3Blob) => {
     if (mp3Blob) {
-      // Directly use the Blob URL, no need to process it
-      setFormData({ ...formData, audio: mp3Blob }); // Update formData with the audio URL (Blob URL)
+      setFormData({ ...formData, audio: mp3Blob }); // Update formData with the audio Blob URL
     }
-    // console.log(formData);
   };
 
-  // TODO
   const handleSaveWord = async (e) => {
-    // console.log(formData); // ! corect info
     e.preventDefault();
+    setSuccessMessage(""); // Reset success message
+    setErrorMessage(""); // Reset error message
+
     try {
       const submitWord = { ...formData };
-      const word = await createWord(submitWord);
-      // // console.log(formData);
-
-      // const response = await fetch("http://localhost:5050/api/words", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
-      // // console.log(response);
-      // // Handle the response from the backend
-      // if (response.ok) {
-      //   console.log("Word saved successfully!");
-      //   // Handle success (maybe show a success message or clear the form)
-      // } else {
-      //   console.error("Failed to save word:", response.statusText);
-      // }
+      await createWord(submitWord); // Assuming createWord handles the API call
+      // Reset form data after a successful submit
+      setFormData({
+        word: "",
+        category: "family",
+        image: null,
+        audio: null,
+        user: user._id, // Keep the user ID
+      });
+      // TODO set timeout so the success message goes away
+      setSuccessMessage("Word successfully added!"); // Show success message
     } catch (error) {
       console.error("Error sending data to backend:", error);
+      setErrorMessage("Failed to add word. Please try again."); // Show error message
     }
   };
 
   if (loading) return <div>Loading...</div>;
   if (!user) return <div>No user data available.</div>;
+
   return (
     <div className="profilePage">
       <div className="userProfile">
@@ -100,21 +95,19 @@ function UserProfile() {
             <option>things</option>
             <option>clothing</option>
           </select>
-          {/* <br />
-          <label>Upload an image for the word</label>
           <br />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            required
-          />
-          <br />
-          <AudioRecord onRecordingComplete={handleRecordingComplete} /> */}
+          {/* Optionally, you can add file upload and audio recorder here */}
           <br />
           <button type="submit">SAVE WORD</button>
         </form>
+
+        {/* Display success or error message */}
+        {successMessage && (
+          <div className="successMessage">{successMessage}</div>
+        )}
+        {errorMessage && <div className="errorMessage">{errorMessage}</div>}
       </div>
+
       <UsersWords />
     </div>
   );

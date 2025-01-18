@@ -35,9 +35,16 @@ export async function getUserWords(userId) {
   }
 }
 
-export async function editWord(wordId) {
-  const res = await fetch(URL + `/${wordId}`, { method: "PUT" });
-  console.log(res);
+export async function editWord(wordId, editedForm) {
+  console.log(wordId, editedForm, "in API recieved");
+  const res = await fetch(URL + `/${wordId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json", // Make sure to include this
+    },
+    body: JSON.stringify(editedForm),
+  });
+  console.log(res, "response in API frontend");
   if (res.ok) {
     return res.json();
   } else {

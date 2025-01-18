@@ -10,6 +10,7 @@ function UsersWords() {
   const [words, setWords] = useState(null);
   const { user, loading } = FetchUser();
   const [editedForm, setEditedForm] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(""); // Success message state
 
   // Fetch words when the component mounts (or when `user` changes)
   useEffect(() => {
@@ -21,8 +22,9 @@ function UsersWords() {
   async function displayWords() {
     if (user && user._id) {
       const userId = user._id;
-      const words = await getUserWords(userId);
-      setWords(words);
+      const fetchedWords = await getUserWords(userId);
+
+      setWords(fetchedWords);
     }
   }
 
@@ -32,6 +34,7 @@ function UsersWords() {
       category: category,
       userId: userId,
     });
+    setSuccessMessage(""); // Clear any previous success message when starting to edit
   };
 
   const handleEditChange = (e) => {
@@ -47,9 +50,11 @@ function UsersWords() {
   };
 
   async function handleEditSubmit(wordId) {
+    console.log(wordId, editedForm);
     const updatedWord = await editWord(wordId, editedForm);
     console.log("Edited word:", updatedWord);
     setEditedForm(null); // Close the edit form after submitting
+    setSuccessMessage("Word successfully edited!"); // Set success message
     displayWords(); // Re-fetch words to reflect the changes
   }
 
@@ -89,6 +94,9 @@ function UsersWords() {
       )}
       {!words && <p>Loading...</p>}
       {words && words.length === 0 && <p>No words found.</p>}
+
+      {/* Success message */}
+      {successMessage && <p className="successMessage">{successMessage}</p>}
 
       {/* Edit Form */}
       {editedForm && (

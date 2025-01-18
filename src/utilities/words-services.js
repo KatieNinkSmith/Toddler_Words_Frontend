@@ -10,8 +10,10 @@ export async function getUserWords(userId) {
   return words;
 }
 
-export async function editWord(wordId) {
-  const editedWord = await wordsAPI.editWord(wordId);
+export async function editWord(wordId, editedForm) {
+  console.log(wordId, editedForm, "in services recieved data");
+  const editedWord = await wordsAPI.editWord(wordId, editedForm);
+  console.log(editedWord, "sent to API");
   return editedWord;
 }
 
