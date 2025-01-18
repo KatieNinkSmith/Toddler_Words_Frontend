@@ -115,9 +115,7 @@ function UserProfile() {
           <button type="submit">SAVE WORD</button>
         </form>
       </div>
-      <div>
-        <UsersWords />
-      </div>
+      <UsersWords />
     </div>
   );
 }

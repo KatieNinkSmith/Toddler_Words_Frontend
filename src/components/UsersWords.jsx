@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   getUserWords,
   editWord,
@@ -9,147 +9,118 @@ import FetchUser from "../components/FetchUser";
 function UsersWords() {
   const [words, setWords] = useState(null);
   const { user, loading } = FetchUser();
-  const [edit, setEdit] = useState(false);
-  // console.log(user);
-  // TODO: Fetch data from a server API and display the fetched words
+  const [editedForm, setEditedForm] = useState(null);
+
+  // Fetch words when the component mounts (or when `user` changes)
+  useEffect(() => {
+    if (user && user._id) {
+      displayWords(); // Fetch words once when the user is available
+    }
+  }, [user]); // Only call when `user` is set/changed
+
   async function displayWords() {
-    // console.log(user);
-    const userId = user._id;
-    const words = await getUserWords(userId);
-    setWords(words);
+    if (user && user._id) {
+      const userId = user._id;
+      const words = await getUserWords(userId);
+      setWords(words);
+    }
   }
-  displayWords();
 
-  // const handleEdit = (date, type, description, id) => {
-  //   //console.log(date, type, description, id); // *** all data is pulled
-  //   setEditFormId(id);
-  //   //console.log("this is the edit id:", id);
-  //   // *** edited form data
-  //   setEditedForm({
-  //     entryDate: date,
-  //     entryType: type,
-  //     description: description,
-  //   });
+  const handleEdit = (word, category, userId) => {
+    setEditedForm({
+      word: word,
+      category: category,
+      userId: userId,
+    });
+  };
 
-  //   //console.log(editedForm); // ** ensuring the form data is going fully through the handleEdit
-  // };
-  // // ** Cancel Edit
-  // const cancelEdit = () => {
-  //   setEditFormId(null); // ** Clear the edit form state
-  //   setEditedForm({ entryDate: current, entryType: "", description: "" }); // ** Reset the form
-  // };
-
-  //     // ** This function is called when the user changes any input field (date, type, description)
-  // const handleEditChange = (e) => {
-  //   const { name, value } = e.target;
-  //   // ** Update only the field that changed (keeping others intact)
-  //   setEditedForm((prevForm) => ({
-  //     ...prevForm, // ** Keep the previous values intact
-  //     [name]: value, // ** Update the specific field that changed
-  //   }));
-  // };
-
-  // const handleTypeSelect = (e) => {
-  //   setEntryType(e.target.value);
-  // };
-  async function editRequest(wordId) {
+  const handleEditChange = (e) => {
     const { name, value } = e.target;
-    // ** Update only the field that changed (keeping others intact)
     setEditedForm((prevForm) => ({
-      ...prevForm, // ** Keep the previous values intact
-      [name]: value, // ** Update the specific field that changed
+      ...prevForm,
+      [name]: value,
     }));
-    setEdit(true);
-    // TODO: Implement word editing functionality with conditional rendering of input form to make edits
-    const editedWord = await editWord(wordId);
-    console.log("Edited word:", editedWord);
-    return editedWord;
+  };
+
+  const cancelEdit = () => {
+    setEditedForm(null); // Reset the form
+  };
+
+  async function handleEditSubmit(wordId) {
+    const updatedWord = await editWord(wordId, editedForm);
+    console.log("Edited word:", updatedWord);
+    setEditedForm(null); // Close the edit form after submitting
+    displayWords(); // Re-fetch words to reflect the changes
   }
 
   async function deleteRequest(wordId) {
-    const deletedWord = await deleteWord(wordId);
-    return deletedWord;
+    await deleteWord(wordId);
+    displayWords(); // Re-fetch words after deleting
   }
 
   return (
     <div className="userAdditions">
-      <div>{user ? user.name + "'s Words" : "Created Words"}</div>
+      <h4>{user ? user.name + "'s Words" : "Created Words"}</h4>
       {words && (
         <ul className="wordsList">
           {words.map((word, index) => (
-            <li key={index}>
-              Word: {word.word}
-              <br />
-              Category: {word.category}
-              <br />
-              Image: {word.image}
-              <br />
-              Audio: {word.audio}
-              <br />
-              <button onClick={() => editRequest(word._id)}>EDIT</button>
-              <button onClick={() => deleteRequest(word._id)}>DELETE</button>
+            <li key={index} className="listWord">
+              <div className="wordInfo">
+                Word: {word.word}
+                <br />
+                Category: {word.category}
+                <br />
+                Image: {word.image}
+                <br />
+                Audio: {word.audio}
+              </div>
+              <div className="wordButton">
+                <button
+                  onClick={() => handleEdit(word.word, word.category, word._id)}
+                >
+                  EDIT
+                </button>
+                <br />
+                <button onClick={() => deleteRequest(word._id)}>DELETE</button>
+              </div>
             </li>
           ))}
         </ul>
       )}
       {!words && <p>Loading...</p>}
       {words && words.length === 0 && <p>No words found.</p>}
+
+      {/* Edit Form */}
+      {editedForm && (
+        <div>
+          <label>Edit Word:</label>
+          <input
+            type="text"
+            name="word"
+            value={editedForm.word}
+            onChange={handleEditChange}
+            required
+          />
+          <label>Edit Category:</label>
+          <select
+            name="category"
+            value={editedForm.category}
+            onChange={handleEditChange}
+            required
+          >
+            <option>family</option>
+            <option>places</option>
+            <option>things</option>
+            <option>clothing</option>
+          </select>
+          <button onClick={() => handleEditSubmit(editedForm.userId)}>
+            Save
+          </button>
+          <button onClick={cancelEdit}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 }
 
 export default UsersWords;
-
-// {editFormId === entry._id ? (
-//   <>
-//     <>
-//       <input
-//         type="date"
-//         name="entryDate"
-//         required
-//         onChange={handleEditChange}
-//         value={editedForm.entryDate}
-//       />
-//       <label>
-//         Choose the Entry Type
-//         <select
-//           name="entryType"
-//           value={editedForm.entryType}
-//           onChange={handleEditChange}
-//         >
-//           <option value="None"> </option>
-//           <option value="ToDo">To Do</option>
-//           <option value="Idea">Idea</option>
-//           <option value="Appt">Appt</option>
-//           <option value="Sched">Sched</option>
-//           <option value="List">List</option>
-//         </select>
-//       </label>
-//       <input
-//         type="text"
-//         name="description"
-//         required
-//         onChange={handleEditChange}
-//         value={editedForm.description}
-//       />
-//       <button onClick={() => editEntry(entry._id)}>Save</button>
-//       <button onClick={cancelEdit}>Cancel</button>
-//     </>
-//   </>
-// ) : (
-//   <>
-//     {entry.entryDate}: {entry.entryType} : {entry.description}
-//     <button
-//       onClick={() =>
-//         handleEdit(
-//           entry.entryDate,
-//           entry.entryType,
-//           entry.description,
-//           entry._id
-//         )
-//       }
-//     >
-//       Edit
-//     </button>
-//   </>
-// )}
