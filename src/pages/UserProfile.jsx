@@ -9,7 +9,7 @@ function UserProfile() {
   // console.log(user);
   const [formData, setFormData] = useState({
     word: "",
-    category: "Family",
+    category: "family",
     image: null,
     audio: null,
     user: user,

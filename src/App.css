@@ -55,14 +55,27 @@
   flex-direction: column;
 }
 .userAdditions {
-  width: 50%;
-  margin: 30px;
+  width: 300px;
+  height: 500px;
+  margin: 20px;
   padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   border: 2px solid black;
+}
+.wordsList {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+  /* scrollbar-color: ; */
 }
 .carousel {
   width: 100%;
