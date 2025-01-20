@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import WordDisplay from "../components/WordDisplay";
 import { getUsersWordsByCategory } from "../utilities/words-services"; // Ensure this is imported
+import { useNavigate } from "react-router";
 
-function Welcome() {
+function Welcome({ setSelectedCategory }) {
   const colorUrl =
     'url("https://images.unsplash.com/photo-1500042600524-37ecb686c775?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fHJhaW5ib3d8ZW58MHx8MHx8fDA%3D")';
   const animalUrl =
@@ -20,41 +20,13 @@ function Welcome() {
   const clothingUrl =
     "url(https://images.unsplash.com/photo-1560506840-ec148e82a604?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjE0fHxjbG90aGluZyUyMHRvZGRsZXJ8ZW58MHx8MHx8fDA%3D)";
 
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
   const [categoriesWithWords, setCategoriesWithWords] = useState([]);
 
-  // Fetch words for all categories and store those with words
-  useEffect(() => {
-    const categories = ["family", "places", "things", "clothing"];
-    const fetchWords = async () => {
-      const validCategories = [];
-
-      for (let category of categories) {
-        try {
-          const words = await getUsersWordsByCategory(user, category);
-          if (words.length > 0) {
-            validCategories.push({ category, words });
-          }
-        } catch (error) {
-          console.error(
-            `Error fetching words for category ${category}:`,
-            error
-          );
-        }
-      }
-
-      setCategoriesWithWords(validCategories);
-    };
-
-    if (user) {
-      fetchWords();
-    }
-  }, [user]);
-
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category); // Set the selected category when a user clicks
+    navigate(`/interactivewords/${category}`); // Redirect to the InteractiveWords page with the selected category
   };
 
   return (
@@ -138,8 +110,6 @@ function Welcome() {
           </div>
         )}
       </div>
-
-      {selectedCategory && <WordDisplay selectedCategory={selectedCategory} />}
     </div>
   );
 }

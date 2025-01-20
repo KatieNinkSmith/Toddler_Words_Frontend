@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import AudioPlayer from "./AudioPlayer";
 
-function CurrentWordIndex({ words, onWordChange }) {
+function CurrentWordIndex({ selectedCategory, onWordChange }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState(words[0]?.image);
 
   useEffect(() => {
     // This effect ensures that whenever currentWordIndex changes, we notify the parent (Colors component)
-    const currentImage = words[currentWordIndex]?.image;
+    const currentImage = selectedCategory[currentWordIndex]?.image;
     setCurrentImage(currentImage);
     onWordChange(currentWordIndex, currentImage);
-  }, [currentWordIndex, words, onWordChange]); // Effect will run whenever currentWordIndex changes
+  }, [currentWordIndex, selectedCategory, onWordChange]); // Effect will run whenever currentWordIndex changes
 
   const nextWord = () => {
     setCurrentWordIndex((prevIndex) => {
@@ -72,7 +71,7 @@ function CurrentWordIndex({ words, onWordChange }) {
             marginBottom: "250px",
           }}
         >
-          {words[currentWordIndex]?.word}
+          {selectedCategory[currentWordIndex]?.word}
         </h2>
         {/* <AudioPlayer currentWordIndex={words[currentWordIndex]} /> */}
       </div>

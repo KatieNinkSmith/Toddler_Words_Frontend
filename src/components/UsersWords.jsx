@@ -66,6 +66,7 @@ function UsersWords() {
   return (
     <div className="userAdditions">
       <h4>{user ? user.name + "'s Words" : "Created Words"}</h4>
+      // TODO search by category
       {words && (
         <ul className="wordsList">
           {words.map((word, index) => (
@@ -75,7 +76,14 @@ function UsersWords() {
                 <br />
                 Category: {word.category}
                 <br />
-                Image: {word.image}
+                Image:{" "}
+                {word.image ? (
+                  <img
+                    style={{ width: "80px" }}
+                    src={word.image}
+                    alt={word.word}
+                  />
+                ) : null}
                 <br />
                 Audio: {word.audio}
               </div>
@@ -94,10 +102,8 @@ function UsersWords() {
       )}
       {!words && <p>The words are still loading...</p>}
       {words && words.length === 0 && <p>There are no words yet</p>}
-
       {/* Success message */}
       {successMessage && <p className="successMessage">{successMessage}</p>}
-
       {/* Edit Form */}
       {editedForm && (
         <div>

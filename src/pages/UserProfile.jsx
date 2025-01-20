@@ -4,11 +4,12 @@ import AudioRecord from "../components/AudioRecorder";
 import { createWord } from "../utilities/words-services";
 import UsersWords from "../components/UsersWords";
 
+// TODO add all data to the database so it is not coded here, fix blob
 function UserProfile() {
   const { user, loading } = FetchUser();
   const [formData, setFormData] = useState({
     word: "",
-    category: "family",
+    category: "colors",
     image: null,
     imageURL: "",
     audio: null,
@@ -29,7 +30,6 @@ function UserProfile() {
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-  // TODO work on image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, image: file, imageURL: "" });
@@ -56,7 +56,7 @@ function UserProfile() {
       // Reset form data after a successful submit
       setFormData({
         word: "",
-        category: "family",
+        category: "colors",
         image: null,
         imageURL: "",
         audio: null,
@@ -71,7 +71,7 @@ function UserProfile() {
   };
 
   if (loading) return <div>Loading...</div>;
-  if (!user) return <div>No user data available.</div>;
+  if (!user) return <div>No user words available.</div>;
 
   return (
     <div className="profilePage">

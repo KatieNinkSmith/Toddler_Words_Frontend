@@ -1,14 +1,13 @@
 import {
   useSimpleAudioRecorder,
   SimpleAudioRecorder,
-  preloadWorker,
-  RecorderStates,
 } from "simple-audio-recorder/react";
 
 export default function AudioRecord({ onRecordingComplete }) {
   const recorder = useSimpleAudioRecorder({
     workerUrl:
       "https://cdn.jsdelivr.net/npm/simple-audio-recorder@1.1.0/dist/mp3worker.js",
+
     onDataAvailable: (data) => console.log("DATA AVAILABLE", data.length),
     onComplete: (mp3Blob) => {
       console.log("Recording complete, mp3Blob:", mp3Blob.mp3Url);
@@ -25,7 +24,7 @@ export default function AudioRecord({ onRecordingComplete }) {
   const viewRecording = (
     <>
       <button onClick={recorder.stop}>
-        stop recording ({(recorder.time / 1000.0).toFixed(2) + "s"})
+        stop recording ({(recorder.time / 1000.0).toFixed(1) + "s"})
       </button>
       <button onClick={recorder.pause}>pause</button>
     </>
@@ -34,7 +33,7 @@ export default function AudioRecord({ onRecordingComplete }) {
   const viewPaused = (
     <>
       <button onClick={recorder.stop}>
-        stop recording ({(recorder.time / 1000.0).toFixed(2) + "s"})
+        stop recording ({(recorder.time / 1000.0).toFixed(1) + "s"})
       </button>
       <button onClick={recorder.resume}>resume</button>
     </>
@@ -56,9 +55,6 @@ export default function AudioRecord({ onRecordingComplete }) {
         viewPaused={viewPaused}
         viewError={viewError}
       />
-
-      <hr />
-
       {recorder.mp3Urls.toReversed().map((url) => (
         <div key={url}>
           <audio src={url} controls />
