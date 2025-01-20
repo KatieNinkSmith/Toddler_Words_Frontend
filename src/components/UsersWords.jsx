@@ -92,8 +92,8 @@ function UsersWords() {
           ))}
         </ul>
       )}
-      {!words && <p>Loading...</p>}
-      {words && words.length === 0 && <p>No words found.</p>}
+      {!words && <p>The words are still loading...</p>}
+      {words && words.length === 0 && <p>There are no words yet</p>}
 
       {/* Success message */}
       {successMessage && <p className="successMessage">{successMessage}</p>}

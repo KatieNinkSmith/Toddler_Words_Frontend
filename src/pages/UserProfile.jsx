@@ -10,6 +10,7 @@ function UserProfile() {
     word: "",
     category: "family",
     image: null,
+    imageURL: "",
     audio: null,
     user: user,
   });
@@ -31,7 +32,11 @@ function UserProfile() {
   // TODO work on image upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setFormData({ ...formData, image: file });
+    setFormData({ ...formData, image: file, imageURL: "" });
+  };
+  const handleImageURLChange = (e) => {
+    const url = e.target.value;
+    setFormData({ ...formData, imageURL: url, image: null }); // Clear image if a URL is entered
   };
   // TODO work on blob
   const handleRecordingComplete = async (mp3Blob) => {
@@ -53,6 +58,7 @@ function UserProfile() {
         word: "",
         category: "family",
         image: null,
+        imageURL: "",
         audio: null,
         user: user._id, // Keep the user ID
       });
@@ -94,20 +100,36 @@ function UserProfile() {
             <option>places</option>
             <option>things</option>
             <option>clothing</option>
+            <option>counting</option>
+            <option>food</option>
+            <option>animals</option>
+            <option>colors</option>
           </select>
           <br />
-          {/* Optionally, you can add file upload and audio recorder here */}
+          <label>Upload an image file</label>
+          <br />
+          <input type="file" onChange={handleImageChange} />
+          <br />
+          <label>Or enter an image URL</label>
+          <br />
+          <input
+            type="text"
+            name="imageURL"
+            value={formData.imageURL}
+            onChange={handleImageURLChange}
+            placeholder="Enter image URL"
+          />
+          <br />
+          <label>Record a sound clip</label>
+          <AudioRecord onRecordingComplete={handleRecordingComplete} />
           <br />
           <button type="submit">SAVE WORD</button>
         </form>
-
-        {/* Display success or error message */}
         {successMessage && (
           <div className="successMessage">{successMessage}</div>
         )}
         {errorMessage && <div className="errorMessage">{errorMessage}</div>}
       </div>
-
       <UsersWords />
     </div>
   );

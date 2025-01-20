@@ -1,9 +1,9 @@
 // TODO: we are using fetch here and can update to axios later
 // ** set up the base url for the route
 const LOCAL_URL = "http://localhost:5050";
-const DEPLOY_URL = "";
+const DEPLOY_URL = "https://toddler-words-backend.onrender.com";
 const API_URL = "/api/words";
-const URL = LOCAL_URL + API_URL;
+const URL = DEPLOY_URL + API_URL;
 
 export async function createWord(formData) {
   // fetch uses an options object as a second arg to make requests other then basic GET requests, include data, headers, ect
@@ -26,12 +26,24 @@ export async function getUserWords(userId) {
   const res = await fetch(URL + `/${userId}`, {
     method: "GET",
   });
-  console.log(res);
+  // console.log(res);
   // check if successful
   if (res.ok) {
     return res.json();
   } else {
     throw new Error("No words created yet");
+  }
+}
+
+export async function getUsersWordsByCategory(user, category) {
+  const res = await fetch(URL + `/${user}/${category}`, {
+    method: "GET",
+  });
+  // console.log(res);
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error("No words found in this category");
   }
 }
 
@@ -44,7 +56,7 @@ export async function editWord(wordId, editedForm) {
     },
     body: JSON.stringify(editedForm),
   });
-  console.log(res, "response in API frontend");
+  // console.log(res, "response in API frontend");
   if (res.ok) {
     return res.json();
   } else {
@@ -54,7 +66,7 @@ export async function editWord(wordId, editedForm) {
 
 export async function deleteWord(wordId) {
   const res = await fetch(URL + `/${wordId}`, { method: "DELETE" });
-  console.log(res);
+  // console.log(res);
   if (res.ok) {
     return res.json();
   } else {

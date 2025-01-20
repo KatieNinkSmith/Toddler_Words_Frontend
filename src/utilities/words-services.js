@@ -10,6 +10,11 @@ export async function getUserWords(userId) {
   return words;
 }
 
+export async function getUsersWordsByCategory(user, category) {
+  const wordsInCategory = await wordsAPI.getUserWordsByCategory(user, category);
+  return wordsInCategory;
+}
+
 export async function editWord(wordId, editedForm) {
   console.log(wordId, editedForm, "in services recieved data");
   const editedWord = await wordsAPI.editWord(wordId, editedForm);

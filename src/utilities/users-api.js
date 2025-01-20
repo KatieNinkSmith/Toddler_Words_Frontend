@@ -1,8 +1,9 @@
 // TODO: we are using fetch here and can update to axios later
 // ** set up the base url for the route
 const LOCAL_URL = "http://localhost:5050";
+const DEPLOY_URL = "https://toddler-words-backend.onrender.com";
 const API_URL = "/api/users";
-const URL = LOCAL_URL + API_URL;
+const URL = DEPLOY_URL + API_URL;
 
 // ** sign up function
 export async function signUp(userData) {

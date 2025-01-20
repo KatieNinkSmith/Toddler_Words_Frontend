@@ -1,5 +1,3 @@
-# React + Vite
-
 URL for deployed site
 https://toddler-words.netlify.app/
 
@@ -24,29 +22,4 @@ Counting is 1-10.
 Alphabet I can not find the photonic sounds of each letter I will have to look for another api or look at adding this myself.
 Page nav image https://plus.unsplash.com/premium_photo-1666739032615-ecbd14dfb543?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWxwaGFiZXR8ZW58MHx8MHx8fDA%3D
 
-Requirements
-Your application must meet these requirements to pass (this it your Minimum Viable Product):
-
-Built with HTML, CSS, JavaScript, REACT.
-Hosted on GitHub pages or Netlify.
-Frequent commits to GitHub.
-A README.md file in your GitHub repository with:
-
-Explanations of the technologies used.
-Explanations of the approach taken.
-A link to your live site.
-Usage instructions, if relevant.
-Unsolved problems.
-etc.
-Use AJAX to make a request to an external data source like OMDBapi, and insert some of the data retrieved into the DOM.
-
 I am working on implementing a recording npm package I have gotten mic-recorder-to-mp3 coded into my application but there were errors with lame causing it to not function, i found mic-recorder-to-mp3-fixed fixed this issue and functions how ever it uses ScriptProcessorNode that is deprecated. I am looking in to the AudioWorkletNode that is implimented across all browsers now and looking at a recorder that has already been updated with this or how to update the functioning recorder above. I have found react-audio-voice-recorder and looking at implimenting it now.
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-# SBA-320-react-web-app
