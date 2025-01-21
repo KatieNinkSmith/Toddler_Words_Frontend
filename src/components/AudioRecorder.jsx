@@ -1,6 +1,8 @@
 import {
   useSimpleAudioRecorder,
   SimpleAudioRecorder,
+  preloadWorker,
+  RecorderStates,
 } from "simple-audio-recorder/react";
 
 export default function AudioRecord({ onRecordingComplete }) {
@@ -11,9 +13,10 @@ export default function AudioRecord({ onRecordingComplete }) {
     onDataAvailable: (data) => console.log("DATA AVAILABLE", data.length),
     onComplete: (mp3Blob) => {
       console.log("Recording complete, mp3Blob:", mp3Blob.mp3Url);
-      const mp3 = mp3Blob.mp3Url;
-      console.log("Type of mp3Blob:", mp3Blob.constructor.name); // Should log 'Blob'
-      onRecordingComplete(mp3); // Pass the mp3Blob to the parent
+      console.log("mp3Url:", mp3Blob.mp3Url); // This should be the correct URL
+      // let data = mp3Blob.mp3Url;
+      // console.log(data);
+      onRecordingComplete(mp3Blob.mp3Url); // Pass the mp3Blob to the parent
     },
 
     onError: (error) => console.log("RECORDING ERROR!", error),

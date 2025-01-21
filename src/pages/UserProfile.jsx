@@ -15,7 +15,7 @@ function UserProfile() {
     audio: null,
     user: user ? user._id : "",
   });
-  console.log(user, loading);
+  // console.log(user, loading);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -42,10 +42,12 @@ function UserProfile() {
     setFormData({ ...formData, imageURL: url, image: null }); // Clear image if a URL is entered
   };
   // TODO work on blob
-  const handleRecordingComplete = async (mp3Blob) => {
-    if (mp3Blob) {
-      setFormData({ ...formData, audio: mp3Blob }); // Update formData with the audio Blob URL
-    }
+  const handleRecordingComplete = async (audioUrl) => {
+    console.log("Received audio URL:", audioUrl);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      audio: audioUrl, // Store the audio URL in the formData
+    }));
   };
 
   const handleSaveWord = async (e) => {

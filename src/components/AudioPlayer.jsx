@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 
-// TODO figure out why the current word is not passing into here to see the audio to play
 const AudioPlayer = ({ currentWord }) => {
   const [audioURL, setAudioURL] = useState("");
 
   useEffect(() => {
     const fetchAudio = async () => {
-      console.log(currentWord);
+      // console.log(currentWord);
       if (currentWord.audio) {
         // Use the provided audio file if available
-        setAudioURL(currentWord.audio);
+        setAudioURL(currentWord);
       } else {
         // If no audio is provided, fetch it from the API
-        const word = currentWord.word.toLowerCase();
+        const word = currentWord.word;
+        const formattedWord = word ? word.toLowerCase() : word;
         try {
           const response = await fetch(
-            `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+            `https://api.dictionaryapi.dev/api/v2/entries/en/${formattedWord}`
           );
           const data = await response.json();
 
@@ -30,7 +30,7 @@ const AudioPlayer = ({ currentWord }) => {
           if (audioFileURL) {
             setAudioURL(audioFileURL); // Set the audio URL if found
           } else {
-            console.error("No audio found for word:", word);
+            console.error("No audio found for word:", formattedWord);
           }
         } catch (error) {
           console.error("Error fetching audio:", error);
@@ -45,14 +45,16 @@ const AudioPlayer = ({ currentWord }) => {
 
   const playAudio = () => {
     if (audioURL) {
+      console.log(audioURL);
       const audio = new Audio(audioURL);
+      console.log(audioURL);
       audio.play().catch((error) => {
         console.error("Playback failed:", error);
       });
     }
   };
 
-  console.log("Audio URL:", audioURL);
+  // console.log("Audio URL:", audioURL);
 
   return (
     <div>

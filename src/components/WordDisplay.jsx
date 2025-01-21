@@ -49,7 +49,7 @@ function WordDisplay({ selectedCategory }) {
         onWordChange={handleWordChange}
         currentWordIndex={currentWordIndex}
       />
-      <AudioPlayer currentWord={words[currentWordIndex]} />
+      <AudioPlayer currentWord={word.audio} />
     </div>
   );
 }

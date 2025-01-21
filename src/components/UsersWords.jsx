@@ -5,7 +5,7 @@ import {
   deleteWord,
 } from "../utilities/words-services";
 import { useUser } from "../contexts/UserContext";
-import AudioRecord from "../components/AudioRecorder";
+import AudioPlayer from "../components/AudioPlayer";
 
 function UsersWords() {
   const [words, setWords] = useState(null);
@@ -77,7 +77,7 @@ function UsersWords() {
 
   const playAudio = (word) => {
     console.log(word);
-    if (word.audio) {
+    if (word) {
       console.log(word.audio);
       const audio = new Audio(word.audio);
       audio.play().catch((error) => {
@@ -110,11 +110,11 @@ function UsersWords() {
                   />
                 ) : null}
                 <br />
-                Audio:{" "}
+                Audio:
                 {word.audio ? (
                   <div>
                     <button
-                      onClick={() => playAudio(word._id)}
+                      onClick={() => playAudio(word)}
                       style={{
                         width: "80px",
                         fontSize: "10px",
@@ -123,6 +123,7 @@ function UsersWords() {
                     >
                       PLAY
                     </button>
+                    <AudioPlayer currentWord={word.audio} />
                   </div>
                 ) : (
                   <h2>No Audio </h2>

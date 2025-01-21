@@ -13,16 +13,16 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     async function fetchUser() {
-      console.log(user);
+      // console.log(user);
       setLoading(true);
       try {
         const userData = await getUser();
         setUser(userData);
-        console.log(userData);
+        // console.log(userData);
       } catch (error) {
         console.error("Failed to fetch user:", error);
         setUser(null);
