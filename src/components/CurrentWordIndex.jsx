@@ -85,7 +85,7 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
         >
           {currentWord.word}
         </h2>
-        <AudioPlayer currentWord={currentWord.audio} />
+        <AudioPlayer currentWord={currentWord} />
       </div>
       <button
         onClick={nextWord}
