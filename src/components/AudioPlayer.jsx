@@ -38,7 +38,9 @@ const AudioPlayer = ({ currentWord }) => {
       }
     };
 
-    fetchAudio();
+    if (currentWord) {
+      fetchAudio();
+    }
   }, [currentWord]);
 
   const playAudio = () => {
@@ -49,6 +51,8 @@ const AudioPlayer = ({ currentWord }) => {
       });
     }
   };
+
+  console.log("Audio URL:", audioURL);
 
   return (
     <div>

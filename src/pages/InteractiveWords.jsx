@@ -28,7 +28,7 @@ function InteractiveWords() {
       };
       fetchWords();
     }
-  }, [user, selectedCategory]);
+  }, [userId, selectedCategory]);
 
   const handleWordChange = (newIndex) => {
     setCurrentWordIndex(newIndex);
@@ -42,6 +42,9 @@ function InteractiveWords() {
   if (loading) return <div>Loading...</div>;
   if (!user) return <div>No user words available.</div>;
 
+  console.log("Current Word Index:", currentWordIndex);
+  console.log("Words List:", words);
+
   return (
     <div
       style={{
@@ -51,7 +54,7 @@ function InteractiveWords() {
       <h1>{selectedCategory ? selectedCategory : "Interactive Words"}</h1>
       <CurrentWordIndex
         words={words}
-        wordCategory={selectedCategory}
+        currentWordIndex={currentWordIndex}
         onWordChange={handleWordChange}
       />
     </div>
