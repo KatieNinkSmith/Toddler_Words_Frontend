@@ -5,6 +5,7 @@ import {
   deleteWord,
 } from "../utilities/words-services";
 import FetchUser from "../components/FetchUser";
+import AudioRecord from "../components/AudioRecorder";
 
 function UsersWords() {
   const [words, setWords] = useState(null);
@@ -28,11 +29,13 @@ function UsersWords() {
     }
   }
 
-  const handleEdit = (word, category, userId) => {
+  const handleEdit = (word, category, image, audio, userId) => {
     setEditedForm({
       word: word,
       category: category,
-      userId: userId,
+      image: image,
+      audio: audio,
+      user: userId,
     });
     setSuccessMessage(""); // Clear any previous success message when starting to edit
   };
@@ -43,6 +46,15 @@ function UsersWords() {
       ...prevForm,
       [name]: value,
     }));
+  };
+
+  const handleImageEdit = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file, imageURL: "" });
+  };
+  const handleImageURLEdit = (e) => {
+    const url = e.target.value;
+    setFormData({ ...formData, imageURL: url, image: null }); // Clear image if a URL is entered
   };
 
   const cancelEdit = () => {
@@ -62,6 +74,19 @@ function UsersWords() {
     await deleteWord(wordId);
     displayWords(); // Re-fetch words after deleting
   }
+
+  const playAudio = (word) => {
+    console.log(word);
+    if (word.audio) {
+      console.log(word.audio);
+      const audio = new Audio(word.audio);
+      audio.play().catch((error) => {
+        console.error("Playback failed:", error);
+      });
+    }
+  };
+
+  //TODO figure out audio recording editing without having to delete the word
 
   return (
     <div className="userAdditions">
@@ -85,11 +110,29 @@ function UsersWords() {
                   />
                 ) : null}
                 <br />
-                Audio: {word.audio}
+                Audio:{" "}
+                {word.audio ? (
+                  <div>
+                    <button
+                      onClick={() => playAudio(word._id)}
+                      style={{
+                        width: "80px",
+                        fontSize: "10px",
+                        padding: "2px",
+                      }}
+                    >
+                      PLAY
+                    </button>
+                  </div>
+                ) : (
+                  <h2>No Audio </h2>
+                )}
               </div>
               <div className="wordButton">
                 <button
-                  onClick={() => handleEdit(word.word, word.category, word._id)}
+                  onClick={() =>
+                    handleEdit(word.word, word.category, word._id, word.image)
+                  }
                 >
                   EDIT
                 </button>
@@ -126,7 +169,28 @@ function UsersWords() {
             <option>places</option>
             <option>things</option>
             <option>clothing</option>
+            <option>counting</option>
+            <option>food</option>
+            <option>animals</option>
+            <option>colors</option>
           </select>
+          <br />
+          <label>Edit Image:</label>
+          <input type="file" onChange={handleImageEdit} />
+          <br />
+          <label>Or enter a new image URL</label>
+          <br />
+          <input
+            type="text"
+            name="imageURL"
+            onChange={handleImageURLEdit}
+            placeholder="Enter image URL"
+          />
+          <br />
+          <label>
+            To edit your audio file you will need to delete your word and create
+            it again.
+          </label>
           <button onClick={() => handleEditSubmit(editedForm.userId)}>
             Save
           </button>

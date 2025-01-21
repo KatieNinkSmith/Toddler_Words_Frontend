@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getUsersWordsByCategory } from "../utilities/words-services"; // Ensure this is imported
 import { useNavigate } from "react-router";
 
 function Welcome({ setSelectedCategory }) {
@@ -21,7 +20,6 @@ function Welcome({ setSelectedCategory }) {
     "url(https://images.unsplash.com/photo-1560506840-ec148e82a604?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjE0fHxjbG90aGluZyUyMHRvZGRsZXJ8ZW58MHx8MHx8fDA%3D)";
 
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
 
   const [categoriesWithWords, setCategoriesWithWords] = useState([]);
 

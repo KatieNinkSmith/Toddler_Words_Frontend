@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 
 function CurrentWordIndex({ selectedCategory, onWordChange }) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentImage, setCurrentImage] = useState(words[0]?.image);
+  console.log(selectedCategory);
+  // const [currentImage, setCurrentImage] = useState(selectedCategory[0]?.image);
 
   useEffect(() => {
     // This effect ensures that whenever currentWordIndex changes, we notify the parent (Colors component)
-    const currentImage = selectedCategory[currentWordIndex]?.image;
-    setCurrentImage(currentImage);
-    onWordChange(currentWordIndex, currentImage);
+    // const currentImage = selectedCategory[currentWordIndex]?.image;
+    // onWordChange(currentWordIndex, currentImage);
   }, [currentWordIndex, selectedCategory, onWordChange]); // Effect will run whenever currentWordIndex changes
 
   const nextWord = () => {
@@ -33,12 +33,14 @@ function CurrentWordIndex({ selectedCategory, onWordChange }) {
     setCurrentImage(image); // Set the current image
     setCurrentWordIndex(newIndex);
   };
+
+  // TODO ${currentImage} in to line 43
   return (
     <div
       className="carousel"
       style={{
         height: "100%",
-        backgroundImage: `url(${currentImage})`,
+        backgroundImage: `url()`,
         backgroundPosition: "center",
         backgroundSize: "50%",
         backgroundRepeat: "no-repeat",
@@ -71,9 +73,9 @@ function CurrentWordIndex({ selectedCategory, onWordChange }) {
             marginBottom: "250px",
           }}
         >
-          {selectedCategory[currentWordIndex]?.word}
+          {/* {selectedCategory[currentWordIndex]?.word} */}
         </h2>
-        {/* <AudioPlayer currentWordIndex={words[currentWordIndex]} /> */}
+        {/* <AudioPlayer currentWordIndex={selectedCategory[currentWordIndex]} /> */}
       </div>
       <button
         onClick={nextWord}
