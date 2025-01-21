@@ -1,6 +1,5 @@
 import { useState } from "react";
 import userServices from "../utilities/users-services";
-import { useNavigate } from "react-router"; // allows for navigation without clicking on sign in
 function LoginForm() {
   const [user, setUser] = useState("");
   const [formData, setFormData] = useState({
@@ -8,7 +7,6 @@ function LoginForm() {
     password: "",
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +20,8 @@ function LoginForm() {
       const user = await userServices.login(credentials);
       console.log(user);
       setUser(user.name);
-      navigate("/profile", { state: { user } }); // first arg is location to navigate to, second arg is the location it stores the locations your are navigating to and from.
+      // TODO change to deployed address later
+      window.location.href = "http://localhost:5173/profile"; // first arg is location to navigate to, second arg is the location it stores the locations your are navigating to and from.
     } catch (err) {
       console.log("Error caught", err);
       const errorMessage =

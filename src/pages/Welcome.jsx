@@ -71,7 +71,7 @@ function Welcome({ setSelectedCategory }) {
           Food
         </div>
         <div
-          onClick={() => handleCategoryClick("numbers")}
+          onClick={() => handleCategoryClick("counting")}
           style={{
             backgroundImage: countingUrl,
             backgroundSize: "cover",

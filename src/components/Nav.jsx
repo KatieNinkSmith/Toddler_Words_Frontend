@@ -6,17 +6,7 @@ import { useUser } from "../contexts/UserContext";
 function Nav() {
   const { user, loading } = useUser(); // Fetch user and loading state
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
-
   const location = useLocation(); // Get the current route
-
-  useEffect(() => {
-    if (user) {
-      setIsLoggedIn(true); // User is logged in
-    } else {
-      setIsLoggedIn(false); // User is not logged in
-    }
-  }, [user]); // Re-run whenever the user changes
 
   const handleLogOut = () => {
     logOut();
@@ -32,7 +22,7 @@ function Nav() {
       <Link to="/">
         <div>Home</div>
       </Link>
-      {isLoggedIn ? (
+      {user ? (
         <Link to="/profile">
           <div>PROFILE</div>
         </Link>
@@ -41,7 +31,7 @@ function Nav() {
           <div>LOG IN</div>
         </Link>
       )}
-      {isLoggedIn && location.pathname === "/profile" && (
+      {location.pathname === "/profile" && (
         <Link to="" onClick={handleLogOut}>
           <div>LOG OUT</div>
         </Link>

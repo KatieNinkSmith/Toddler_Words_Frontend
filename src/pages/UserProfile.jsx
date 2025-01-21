@@ -4,7 +4,7 @@ import AudioRecord from "../components/AudioRecorder";
 import { createWord } from "../utilities/words-services";
 import UsersWords from "../components/UsersWords";
 
-// TODO add all data to the database so it is not coded here, fix blob
+// TODO fix blob
 function UserProfile() {
   const { user, loading } = useUser();
   const [formData, setFormData] = useState({
@@ -13,19 +13,22 @@ function UserProfile() {
     image: null,
     imageURL: "",
     audio: null,
-    user: user,
+    user: user ? user._id : "",
   });
+  console.log(user, loading);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // TODO see is  set time out helps :(
   useEffect(() => {
     if (user) {
+      console.log("user data avalible:", user);
       setFormData((prevFormData) => ({
         ...prevFormData,
         user: user._id, // Set user._id once it's available
       }));
     }
-  }, [user]); // Runs when user data changes
+  }, [user, loading]); // Runs when user data changes
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,8 +73,13 @@ function UserProfile() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (!user) return <div>No user words available.</div>;
+  if (loading) {
+    return <div>Loading...</div>; // Wait for user data to load
+  }
+
+  if (!user) {
+    return <div>No user logged in.</div>;
+  }
 
   return (
     <div className="profilePage">
