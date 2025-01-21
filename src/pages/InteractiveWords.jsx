@@ -1,26 +1,41 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
 import AudioPlayer from "../components/AudioPlayer";
 import CurrentWordIndex from "../components/CurrentWordIndex";
-import UsersWords from "../components/UsersWords";
-import FetchUser from "../components/FetchUser";
-import WordDisplay from "../components/WordDisplay";
+import { useUser } from "../contexts/UserContext";
+import { useSelectedCategory } from "../contexts/SelectedCategoryContext";
+import { getUsersWordsByCategory } from "../utilities/words-services";
 
 function InteractiveWords() {
-  const { selectedCategory } = useParams();
-  console.log(selectedCategory);
+  const { selectedCategory } = useSelectedCategory();
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const { user, loading } = FetchUser();
-  console.log(user);
+  const { user, loading } = useUser();
+  const [words, setWords] = useState([]);
+  const userId = user._id;
 
-  // const words = user.words.filter((word) => word.category === selectedCategory);
+  useEffect(() => {
+    if (userId && selectedCategory) {
+      const fetchWords = async () => {
+        try {
+          const response = await getUsersWordsByCategory(
+            userId,
+            selectedCategory
+          );
+          setWords(response); // Set the fetched words in state
+          console.log(words);
+        } catch (error) {
+          console.error("Error fetching words:", error);
+        }
+      };
+      fetchWords();
+    }
+  }, [user, selectedCategory]);
 
   const handleWordChange = (newIndex) => {
     setCurrentWordIndex(newIndex);
   };
+
   const getBackgroundColor = () => {
-    console.log(selectedCategory);
-    return selectedCategory[currentWordIndex]?.word;
+    return words[currentWordIndex]?.word;
   };
   const backgroundColor = getBackgroundColor();
 
@@ -33,18 +48,11 @@ function InteractiveWords() {
         backgroundColor: backgroundColor, // Adjusted to set the background color using the word
       }}
     >
-      <WordDisplay currentWordIndex={currentWordIndex} />
-      {selectedCategory ? (
-        <h1>{selectedCategory}</h1>
-      ) : (
-        <h1>InteractiveWords</h1>
-      )}
+      <h1>{selectedCategory ? selectedCategory : "Interactive Words"}</h1>
       <CurrentWordIndex
+        words={words}
         wordCategory={selectedCategory}
         onWordChange={handleWordChange}
-      />
-      <AudioPlayer
-        currentWordIndex={selectedCategory[currentWordIndex]?.word}
       />
     </div>
   );

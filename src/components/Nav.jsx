@@ -1,10 +1,10 @@
 import { Link, useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import { logOut } from "../utilities/users-services";
-import FetchUser from "../components/FetchUser";
+import { useUser } from "../contexts/UserContext";
 
 function Nav() {
-  const { user, loading } = FetchUser(); // Fetch user and loading state
+  const { user, loading } = useUser(); // Fetch user and loading state
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
 

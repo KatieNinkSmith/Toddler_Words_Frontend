@@ -1,46 +1,53 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-function CurrentWordIndex({ selectedCategory, onWordChange }) {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  console.log(selectedCategory);
-  // const [currentImage, setCurrentImage] = useState(selectedCategory[0]?.image);
+import AudioPlayer from "../components/AudioPlayer"; // Assuming AudioPlayer is imported
+
+// TODO figure out why the current word is not passing into here to see the current word and carousel buttons
+function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
+  const currentWord = words[currentWordIndex];
 
   useEffect(() => {
-    // This effect ensures that whenever currentWordIndex changes, we notify the parent (Colors component)
-    // const currentImage = selectedCategory[currentWordIndex]?.image;
-    // onWordChange(currentWordIndex, currentImage);
-  }, [currentWordIndex, selectedCategory, onWordChange]); // Effect will run whenever currentWordIndex changes
+    if (currentWord) {
+      // You can do additional setup when the current word changes
+      onWordChange(currentWordIndex); // Notify parent of the change
+    }
+  }, [currentWordIndex, currentWord, onWordChange]);
 
+  // const nextWord = () => {
+  //   setCurrentWordIndex((prevIndex) => {
+  //     const newIndex = (prevIndex + 1) % words.length; // Ensure circular navigation
+  //     const newImage = words[newIndex]?.image;
+  //     handleWordChange(newIndex, newImage); // Notify parent component about the change
+  //     return newIndex;
+  //   });
+  // };
+  // console.log(selectedCategory);
   const nextWord = () => {
-    setCurrentWordIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % words.length; // Ensure circular navigation
-      const newImage = words[newIndex]?.image;
-      handleWordChange(newIndex, newImage); // Notify parent component about the change
-      return newIndex;
-    });
+    const nextIndex = (currentWordIndex + 1) % words.length; // Wrap around to first word
+    onWordChange(nextIndex); // Change word index in parent component
   };
 
+  // const prevWord = () => {
+  //   setCurrentWordIndex((prevIndex) => {
+  //     const newIndex = (prevIndex - 1 + words.length) % words.length; // Ensure circular navigation
+  //     const newImage = words[newIndex]?.image;
+  //     handleWordChange(newIndex, newImage); // Notify parent component about the change
+  //     return newIndex;
+  //   });
+  // };
   const prevWord = () => {
-    setCurrentWordIndex((prevIndex) => {
-      const newIndex = (prevIndex - 1 + words.length) % words.length; // Ensure circular navigation
-      const newImage = words[newIndex]?.image;
-      handleWordChange(newIndex, newImage); // Notify parent component about the change
-      return newIndex;
-    });
+    const prevIndex = (currentWordIndex - 1 + words.length) % words.length; // Wrap around to last word
+    onWordChange(prevIndex); // Change word index in parent component
   };
 
-  const handleWordChange = (newIndex, image) => {
-    setCurrentImage(image); // Set the current image
-    setCurrentWordIndex(newIndex);
-  };
+  if (!currentWord) return <div>Loading...</div>;
 
-  // TODO ${currentImage} in to line 43
   return (
     <div
       className="carousel"
       style={{
         height: "100%",
-        backgroundImage: `url()`,
+        backgroundImage: `url(${currentWord.image})`,
         backgroundPosition: "center",
         backgroundSize: "50%",
         backgroundRepeat: "no-repeat",
@@ -59,6 +66,7 @@ function CurrentWordIndex({ selectedCategory, onWordChange }) {
       <div
         className="main"
         style={{
+          textAlign: "center",
           display: "flex",
           justifyContent: "spaceBetween",
           flexDirection: "column",
@@ -73,9 +81,9 @@ function CurrentWordIndex({ selectedCategory, onWordChange }) {
             marginBottom: "250px",
           }}
         >
-          {/* {selectedCategory[currentWordIndex]?.word} */}
+          {currentWord.word}
         </h2>
-        {/* <AudioPlayer currentWordIndex={selectedCategory[currentWordIndex]} /> */}
+        <AudioPlayer currentWord={currentWord.audio} />
       </div>
       <button
         onClick={nextWord}

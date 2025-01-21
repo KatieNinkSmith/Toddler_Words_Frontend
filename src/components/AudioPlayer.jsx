@@ -1,42 +1,45 @@
-import React from "react";
 import { useState, useEffect } from "react";
 
-const AudioPlayer = ({ currentWordIndex }) => {
+// TODO figure out why the current word is not passing into here to see the audio to play
+const AudioPlayer = ({ currentWord }) => {
   const [audioURL, setAudioURL] = useState("");
-  const [word, setWord] = useState("");
-
-  // Ensure word is set when currentWordIndex is valid
-  useEffect(() => {
-    if (currentWordIndex && currentWordIndex.word) {
-      setWord(currentWordIndex.word.toLowerCase());
-    }
-  }, [currentWordIndex]);
 
   useEffect(() => {
-    const getAudio = async () => {
-      try {
-        if (!word) return; // Don't proceed if word is empty or undefined
+    const fetchAudio = async () => {
+      console.log(currentWord);
+      if (currentWord.audio) {
+        // Use the provided audio file if available
+        setAudioURL(currentWord.audio);
+      } else {
+        // If no audio is provided, fetch it from the API
+        const word = currentWord.word.toLowerCase();
+        try {
+          const response = await fetch(
+            `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+          );
+          const data = await response.json();
 
-        const response = await fetch(
-          `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-        );
-        const data = await response.json();
-
-        let audioFileURL = "";
-        for (let i = 0; i < data[0]?.phonetics.length; i++) {
-          if (data[0]?.phonetics[i]?.audio === "") {
-            continue;
+          let audioFileURL = "";
+          for (let i = 0; i < data[0]?.phonetics.length; i++) {
+            if (data[0]?.phonetics[i]?.audio) {
+              audioFileURL = data[0]?.phonetics[i].audio;
+              break; // Use the first valid audio file
+            }
           }
-          audioFileURL = data[0]?.phonetics[i].audio;
+
+          if (audioFileURL) {
+            setAudioURL(audioFileURL); // Set the audio URL if found
+          } else {
+            console.error("No audio found for word:", word);
+          }
+        } catch (error) {
+          console.error("Error fetching audio:", error);
         }
-        setAudioURL(audioFileURL);
-      } catch (error) {
-        console.error("Error fetching audio:", error);
       }
     };
 
-    getAudio();
-  }, [word]); // Only run this when the word changes
+    fetchAudio();
+  }, [currentWord]);
 
   const playAudio = () => {
     if (audioURL) {

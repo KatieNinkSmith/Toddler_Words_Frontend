@@ -35,8 +35,8 @@ export async function getUserWords(userId) {
   }
 }
 
-export async function getUsersWordsByCategory(user, category) {
-  const res = await fetch(URL + `/${user}/${category}`, {
+export async function getUsersWordsByCategory(userId, category) {
+  const res = await fetch(URL + `/${userId}/${category}`, {
     method: "GET",
   });
   // console.log(res);

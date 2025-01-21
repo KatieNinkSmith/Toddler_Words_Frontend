@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { getUsersWordsByCategory } from "../utilities/words-services";
-import FetchUser from "../components/FetchUser";
+import { useUser } from "../contexts/UserContext";
 import AudioPlayer from "../components/AudioPlayer"; // Assuming AudioPlayer is imported
 import CurrentWordIndex from "../components/CurrentWordIndex"; // Assuming this is imported
 
 function WordDisplay({ selectedCategory }) {
-  const { user, loading } = FetchUser(); // Fetch user info
+  const { user, loading } = useUser(); // Fetch user info
   const [words, setWords] = useState([]);
   const [currentWordIndex, setCurrentWordIndex] = useState(0); // Track current word index
   const [categoryWords, setCategoryWords] = useState(null); // State to track the
@@ -43,6 +43,7 @@ function WordDisplay({ selectedCategory }) {
   return (
     <div>
       <h1>{selectedCategory}</h1> {/* Display selected category */}
+      <h1>This is displaying here</h1>
       <CurrentWordIndex
         wordCategory={selectedCategory}
         onWordChange={handleWordChange}

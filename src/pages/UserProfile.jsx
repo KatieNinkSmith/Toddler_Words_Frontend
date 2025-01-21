@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import FetchUser from "../components/FetchUser";
+import { useUser } from "../contexts/UserContext";
 import AudioRecord from "../components/AudioRecorder";
 import { createWord } from "../utilities/words-services";
 import UsersWords from "../components/UsersWords";
 
 // TODO add all data to the database so it is not coded here, fix blob
 function UserProfile() {
-  const { user, loading } = FetchUser();
+  const { user, loading } = useUser();
   const [formData, setFormData] = useState({
     word: "",
     category: "colors",

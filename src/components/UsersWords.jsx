@@ -4,12 +4,12 @@ import {
   editWord,
   deleteWord,
 } from "../utilities/words-services";
-import FetchUser from "../components/FetchUser";
+import { useUser } from "../contexts/UserContext";
 import AudioRecord from "../components/AudioRecorder";
 
 function UsersWords() {
   const [words, setWords] = useState(null);
-  const { user, loading } = FetchUser();
+  const { user, loading } = useUser();
   const [editedForm, setEditedForm] = useState(null);
   const [successMessage, setSuccessMessage] = useState(""); // Success message state
 

@@ -10,8 +10,12 @@ export async function getUserWords(userId) {
   return words;
 }
 
-export async function getUsersWordsByCategory(user, category) {
-  const wordsInCategory = await wordsAPI.getUserWordsByCategory(user, category);
+export async function getUsersWordsByCategory(userId, category) {
+  console.log(userId, category);
+  const wordsInCategory = await wordsAPI.getUsersWordsByCategory(
+    userId,
+    category
+  );
   return wordsInCategory;
 }
 

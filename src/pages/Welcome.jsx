@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useSelectedCategory } from "../contexts/SelectedCategoryContext";
 
 function Welcome({ setSelectedCategory }) {
   const colorUrl =
@@ -19,11 +20,13 @@ function Welcome({ setSelectedCategory }) {
   const clothingUrl =
     "url(https://images.unsplash.com/photo-1560506840-ec148e82a604?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjE0fHxjbG90aGluZyUyMHRvZGRsZXJ8ZW58MHx8MHx8fDA%3D)";
 
+  const { setCategory } = useSelectedCategory();
   const navigate = useNavigate();
 
   const [categoriesWithWords, setCategoriesWithWords] = useState([]);
 
   const handleCategoryClick = (category) => {
+    setCategory(category);
     navigate(`/interactivewords/${category}`); // Redirect to the InteractiveWords page with the selected category
   };
 
