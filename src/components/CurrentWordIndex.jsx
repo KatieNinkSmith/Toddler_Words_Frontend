@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from "react-icons/hi";
-
-import AudioPlayer from "../components/AudioPlayer"; // Assuming AudioPlayer is imported
+import AudioPlayer from "../components/AudioPlayer";
 
 // TODO figure out why the current word is not passing into here to see the current word and carousel buttons
 function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
@@ -9,19 +8,18 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
 
   useEffect(() => {
     if (currentWord) {
-      // You can do additional setup when the current word changes
-      onWordChange(currentWordIndex); // Notify parent of the change
+      onWordChange(currentWordIndex);
     }
   }, [currentWordIndex, currentWord, onWordChange]);
 
   const nextWord = () => {
-    const nextIndex = (currentWordIndex + 1) % words.length; // Wrap around to first word
-    onWordChange(nextIndex); // Change word index in parent component
+    const nextIndex = (currentWordIndex + 1) % words.length;
+    onWordChange(nextIndex);
   };
 
   const prevWord = () => {
-    const prevIndex = (currentWordIndex - 1 + words.length) % words.length; // Wrap around to last word
-    onWordChange(prevIndex); // Change word index in parent component
+    const prevIndex = (currentWordIndex - 1 + words.length) % words.length;
+    onWordChange(prevIndex);
   };
 
   if (!currentWord) return <div>Loading...</div>;

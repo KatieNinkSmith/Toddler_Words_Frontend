@@ -1,5 +1,7 @@
 import { useState } from "react";
 import userServices from "../utilities/users-services";
+
+// * Login form for users
 function LoginForm() {
   const [user, setUser] = useState("");
   const [formData, setFormData] = useState({
@@ -8,10 +10,13 @@ function LoginForm() {
   });
   const [error, setError] = useState("");
 
+  // * handle change of the form data
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   }
+
+  // * handle form submission to the api
   async function handleSubmit(e) {
     e.preventDefault();
     const credentials = { ...formData };
@@ -20,8 +25,7 @@ function LoginForm() {
       const user = await userServices.login(credentials);
       console.log(user);
       setUser(user.name);
-      // TODO change to deployed address later
-      window.location.href = "https://toddlerwords.netlify.app/profile"; // first arg is location to navigate to, second arg is the location it stores the locations your are navigating to and from.
+      window.location.href = "https://toddlerwords.netlify.app/profile";
     } catch (err) {
       console.log("Error caught", err);
       const errorMessage =
@@ -29,6 +33,7 @@ function LoginForm() {
       setError(errorMessage);
     }
   }
+
   return (
     <>
       <div className="signLogForm">

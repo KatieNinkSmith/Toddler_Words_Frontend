@@ -11,28 +11,23 @@ function InteractiveWords() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const { user, loading } = useUser();
   const [words, setWords] = useState([]);
-  // const userId = user._id;
-  // console.log(userId);
 
   useEffect(() => {
     if (!selectedCategory) {
-      return; // Do nothing if no category is selected
+      return;
     }
     const fetchWords = async () => {
       try {
         let userId = ADMIN_USER_ID;
-
-        // Always fetch admin's words for 'colors', 'animals', 'food', 'counting'
         const specialCategories = ["colors", "animals", "food", "counting"];
         if (user && !specialCategories.includes(selectedCategory)) {
-          // If a user is logged in and it's not one of the special categories, fetch user's words
           userId = user._id;
         }
         const response = await getUsersWordsByCategory(
           userId,
           selectedCategory
         );
-        setWords(response); // Set the fetched words in state
+        setWords(response);
         console.log(response);
         console.log(words);
       } catch (error) {
@@ -61,7 +56,7 @@ function InteractiveWords() {
     <div
       className="wordContainer"
       style={{
-        backgroundColor: backgroundColor, // Adjusted to set the background color using the word
+        backgroundColor: backgroundColor,
       }}
     >
       <h1>{selectedCategory ? selectedCategory : "Interactive Words"}</h1>

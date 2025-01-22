@@ -5,20 +5,19 @@ import {
   deleteWord,
 } from "../utilities/words-services";
 import { useUser } from "../contexts/UserContext";
-// import AudioPlayer from "../components/AudioPlayer";
 
 function UsersWords() {
   const [words, setWords] = useState(null);
   const { user, loading } = useUser();
   const [editedForm, setEditedForm] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(""); // Success message state
+  const [successMessage, setSuccessMessage] = useState("");
 
   // Fetch words when the component mounts (or when `user` changes)
   useEffect(() => {
     if (user && user._id) {
-      displayWords(); // Fetch words once when the user is available
+      displayWords();
     }
-  }, [user]); // Only call when `user` is set/changed
+  }, [user]);
 
   async function displayWords() {
     if (user && user._id) {
@@ -38,7 +37,7 @@ function UsersWords() {
       audio: null,
       _id: wordId,
     });
-    setSuccessMessage(""); // Clear any previous success message when starting to edit
+    setSuccessMessage("");
   };
 
   const handleEditChange = (e) => {
@@ -53,27 +52,28 @@ function UsersWords() {
   //   const file = e.target.files[0];
   //   setFormData({ ...formData, image: file, imageURL: "" });
   // };
+
   const handleImageURLEdit = (e) => {
     const url = e.target.value;
-    setFormData({ ...formData, imageURL: url, image: url }); // Clear image if a URL is entered
+    setFormData({ ...formData, imageURL: url, image: url });
   };
 
   const cancelEdit = () => {
-    setEditedForm(null); // Reset the form
+    setEditedForm(null);
   };
 
   async function handleEditSubmit(wordId) {
     console.log(wordId, editedForm);
     const updatedWord = await editWord(wordId, editedForm);
     console.log("Edited word:", updatedWord);
-    setEditedForm(null); // Close the edit form after submitting
-    setSuccessMessage("Word successfully edited!"); // Set success message
-    displayWords(); // Re-fetch words to reflect the changes
+    setEditedForm(null);
+    setSuccessMessage("Word successfully edited!");
+    displayWords();
   }
 
   async function deleteRequest(wordId) {
     await deleteWord(wordId);
-    displayWords(); // Re-fetch words after deleting
+    displayWords();
   }
 
   // const playAudio = (word) => {

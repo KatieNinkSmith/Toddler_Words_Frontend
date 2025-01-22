@@ -4,17 +4,17 @@ import { logOut } from "../utilities/users-services";
 import { useUser } from "../contexts/UserContext";
 
 function Nav() {
-  const { user, loading } = useUser(); // Fetch user and loading state
+  const { user, loading } = useUser();
 
-  const location = useLocation(); // Get the current route
+  const location = useLocation();
 
   const handleLogOut = () => {
     logOut();
-    setIsLoggedIn(false); // Log out the user and update state
+    setIsLoggedIn(false);
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading state while fetching user data
+    return <div>Loading...</div>;
   }
 
   return (

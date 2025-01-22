@@ -46,21 +46,16 @@ function Welcome({ setSelectedCategory }) {
 
   useEffect(() => {
     if (user && user._id) {
-      displayWords(); // Fetch words once when the user is available
+      displayWords();
     }
   }, [user]);
 
   async function displayWords() {
     if (user && user._id) {
       const userId = user._id;
-      const fetchedWords = await getUserWords(userId); // Assuming this function fetches the user's words
-
-      setWords(fetchedWords); // Store the user's words in state
-
-      // Now check which categories the user has words for
+      const fetchedWords = await getUserWords(userId);
+      setWords(fetchedWords);
       const userCategories = [];
-
-      // Check which categories the user has words for
       const categoriesWithUserWords = [
         "family",
         "places",
@@ -75,17 +70,15 @@ function Welcome({ setSelectedCategory }) {
           userCategories.push(category);
         }
       });
-      console.log(userCategories);
-      // Combine admin categories and user's categories into available categories
       setAvailableCategories([...adminCategories, ...userCategories]);
     }
   }
 
   const handleCategoryClick = (category) => {
     setCategory(category);
-    navigate(`/interactivewords/${category}`); // Redirect to the InteractiveWords page with the selected category
+    navigate(`/interactivewords/${category}`);
   };
-  console.log(userCategories);
+
   return (
     <div>
       <h1>Welcome</h1>

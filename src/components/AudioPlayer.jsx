@@ -5,12 +5,9 @@ const AudioPlayer = ({ currentWord }) => {
 
   useEffect(() => {
     const fetchAudio = async () => {
-      // console.log(currentWord);
       if (currentWord.audio) {
-        // Use the provided audio file if available
         setAudioURL(currentWord);
       } else {
-        // If no audio is provided, fetch it from the API
         const word = currentWord.word;
         const formattedWord = word ? word.toLowerCase() : word;
         try {
@@ -23,12 +20,12 @@ const AudioPlayer = ({ currentWord }) => {
           for (let i = 0; i < data[0]?.phonetics.length; i++) {
             if (data[0]?.phonetics[i]?.audio) {
               audioFileURL = data[0]?.phonetics[i].audio;
-              break; // Use the first valid audio file
+              break;
             }
           }
 
           if (audioFileURL) {
-            setAudioURL(audioFileURL); // Set the audio URL if found
+            setAudioURL(audioFileURL);
           } else {
             console.error("No audio found for word:", formattedWord);
           }
@@ -45,20 +42,15 @@ const AudioPlayer = ({ currentWord }) => {
 
   const playAudio = () => {
     if (audioURL) {
-      console.log(audioURL);
       const audio = new Audio(audioURL);
-      console.log(audioURL);
       audio.play().catch((error) => {
         console.error("Playback failed:", error);
       });
     }
   };
 
-  // console.log("Audio URL:", audioURL);
-
   return (
     <div>
-      {/* Display an audio player if URL exists */}
       {audioURL ? (
         <div>
           <button

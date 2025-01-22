@@ -1,7 +1,4 @@
-// SelectedCategoryContext.js
 import { createContext, useContext, useState } from "react";
-
-// Create SelectedCategoryContext
 const SelectedCategoryContext = createContext();
 
 // Custom hook to use the SelectedCategoryContext

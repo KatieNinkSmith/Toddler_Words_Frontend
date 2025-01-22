@@ -4,7 +4,7 @@ import AudioRecord from "../components/AudioRecorder";
 import { createWord } from "../utilities/words-services";
 import UsersWords from "../components/UsersWords";
 
-// TODO fix blob
+// ** file file saves and blob saves so that they can save AND be read later
 function UserProfile() {
   const { user, loading } = useUser();
   const [formData, setFormData] = useState({
@@ -15,68 +15,66 @@ function UserProfile() {
     audio: null,
     user: user ? user._id : "",
   });
-  // console.log(user, loading);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // TODO see is  set time out helps :(
   useEffect(() => {
     if (user) {
       console.log("user data avalible:", user);
       setFormData((prevFormData) => ({
         ...prevFormData,
-        user: user._id, // Set user._id once it's available
+        user: user._id,
       }));
     }
-  }, [user, loading]); // Runs when user data changes
+  }, [user, loading]);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, image: file, imageURL: "" });
   };
+
   const handleImageURLChange = (e) => {
     const url = e.target.value;
-    setFormData({ ...formData, imageURL: url, image: null }); // Clear image if a URL is entered
+    setFormData({ ...formData, imageURL: url, image: null });
   };
-  // TODO work on blob
+
   const handleRecordingComplete = async (audioUrl) => {
     console.log("Received audio URL:", audioUrl);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      audio: audioUrl, // Store the audio URL in the formData
+      audio: audioUrl,
     }));
   };
 
   const handleSaveWord = async (e) => {
     e.preventDefault();
-    setSuccessMessage(""); // Reset success message
-    setErrorMessage(""); // Reset error message
+    setSuccessMessage("");
+    setErrorMessage("");
 
     try {
       const submitWord = { ...formData };
-      await createWord(submitWord); // Assuming createWord handles the API call
-      // Reset form data after a successful submit
+      await createWord(submitWord);
       setFormData({
         word: "",
         category: "family",
         image: null,
         imageURL: "",
         audio: null,
-        user: user._id, // Keep the user ID
+        user: user._id,
       });
-      // TODO set timeout so the success message goes away
-      setSuccessMessage("Word successfully added!"); // Show success message
+      setSuccessMessage("Word successfully added!");
     } catch (error) {
       console.error("Error sending data to backend:", error);
-      setErrorMessage("Failed to add word. Please try again."); // Show error message
+      setErrorMessage("Failed to add word. Please try again.");
     }
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Wait for user data to load
+    return <div>Loading...</div>;
   }
 
   if (!user) {
@@ -110,7 +108,8 @@ function UserProfile() {
             <option>places</option>
             <option>things</option>
             <option>clothing</option>
-            {/* <option>counting</option>
+            {/* options added for admin addition
+            <option>counting</option>
             <option>food</option>
             <option>animals</option>
             <option>colors</option> */}

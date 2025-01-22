@@ -12,11 +12,7 @@ export default function AudioRecord({ onRecordingComplete }) {
 
     onDataAvailable: (data) => console.log("DATA AVAILABLE", data.length),
     onComplete: (mp3Blob) => {
-      console.log("Recording complete, mp3Blob:", mp3Blob.mp3Url);
-      console.log("mp3Url:", mp3Blob.mp3Url); // This should be the correct URL
-      // let data = mp3Blob.mp3Url;
-      // console.log(data);
-      onRecordingComplete(mp3Blob.mp3Url); // Pass the mp3Blob to the parent
+      onRecordingComplete(mp3Blob.mp3Url);
     },
 
     onError: (error) => console.log("RECORDING ERROR!", error),

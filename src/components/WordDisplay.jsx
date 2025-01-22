@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { getUsersWordsByCategory } from "../utilities/words-services";
 import { useUser } from "../contexts/UserContext";
-import AudioPlayer from "../components/AudioPlayer"; // Assuming AudioPlayer is imported
-import CurrentWordIndex from "../components/CurrentWordIndex"; // Assuming this is imported
+import AudioPlayer from "../components/AudioPlayer";
+import CurrentWordIndex from "../components/CurrentWordIndex";
 
 function WordDisplay({ selectedCategory }) {
-  const { user, loading } = useUser(); // Fetch user info
+  const { user, loading } = useUser();
   const [words, setWords] = useState([]);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0); // Track current word index
-  const [categoryWords, setCategoryWords] = useState(null); // State to track the
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [categoryWords, setCategoryWords] = useState(null);
 
   // Fetch words based on category when `category` or `user` changes
   useEffect(() => {
@@ -17,32 +17,30 @@ function WordDisplay({ selectedCategory }) {
       getUsersWordsByCategory(user, selectedCategory)
         .then((fetchedWords) => {
           setWords(fetchedWords);
-          setCurrentWordIndex(0); // Reset to first word
+          setCurrentWordIndex(0);
         })
         .catch((error) => {
           console.error("Error fetching words:", error);
-          setWords([]); // Optionally handle errors (e.g., show an error message)
+          setWords([]);
         });
     }
-  }, [user, selectedCategory, categoryWords]); // Re-fetch when either user or category changes
+  }, [user, selectedCategory, categoryWords]);
 
   const handleWordChange = (newIndex) => {
-    setCurrentWordIndex(newIndex); // Update the current word index based on the user's actions
+    setCurrentWordIndex(newIndex);
   };
 
-  // Show loading state while user data is being fetched
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // If no words are available or fetched, display a message
   if (!words.length) {
     return <div>No words available for this category.</div>;
   }
 
   return (
     <div>
-      <h1>{selectedCategory}</h1> {/* Display selected category */}
+      <h1>{selectedCategory}</h1>
       <h1>This is displaying here</h1>
       <CurrentWordIndex
         wordCategory={selectedCategory}
