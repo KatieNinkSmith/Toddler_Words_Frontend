@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from "react-icons/hi";
 
 import AudioPlayer from "../components/AudioPlayer"; // Assuming AudioPlayer is imported
 
@@ -38,7 +39,7 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
           padding: "15px",
         }}
       >
-        Previous
+        <HiOutlineArrowSmLeft />
       </button>
       <div
         className="main"
@@ -67,7 +68,7 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
           padding: "15px",
         }}
       >
-        Next
+        <HiOutlineArrowSmRight />
       </button>
     </div>
   );

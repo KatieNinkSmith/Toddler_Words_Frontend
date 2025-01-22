@@ -21,7 +21,7 @@ function LoginForm() {
       console.log(user);
       setUser(user.name);
       // TODO change to deployed address later
-      window.location.href = "http://localhost:5173/profile"; // first arg is location to navigate to, second arg is the location it stores the locations your are navigating to and from.
+      window.location.href = "https://toddlerwords.netlify.app/profile"; // first arg is location to navigate to, second arg is the location it stores the locations your are navigating to and from.
     } catch (err) {
       console.log("Error caught", err);
       const errorMessage =
