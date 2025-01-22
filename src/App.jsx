@@ -20,13 +20,19 @@ function App() {
         <SelectedCategoryProvider>
           <Nav />
           <Routes>
-            <Route path="/" element={<Welcome />} />
+            <Route path="/Toddler_Words_Frontend/" element={<Welcome />} />
             <Route
-              path="/interactivewords/:selectedCategory"
+              path="/Toddler_Words_Frontend/interactivewords/:selectedCategory"
               element={<InteractiveWords />}
             />
-            <Route path="/loginsignup" element={<LoginSignup />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route
+              path="/Toddler_Words_Frontend/loginsignup"
+              element={<LoginSignup />}
+            />
+            <Route
+              path="/Toddler_Words_Frontend/profile"
+              element={<UserProfile />}
+            />
           </Routes>
           <Footer />
         </SelectedCategoryProvider>
