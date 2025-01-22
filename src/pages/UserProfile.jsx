@@ -32,6 +32,7 @@ function UserProfile() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
+  // TODO impliment https://api.imgbb.com/ so that it is only storing a url
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, image: file, imageURL: "" });
@@ -42,6 +43,7 @@ function UserProfile() {
     setFormData({ ...formData, imageURL: url, image: null });
   };
 
+  //TODO find an api that transforms a blob into the correct url formate to store and use later
   const handleRecordingComplete = async (audioUrl) => {
     console.log("Received audio URL:", audioUrl);
     setFormData((prevFormData) => ({

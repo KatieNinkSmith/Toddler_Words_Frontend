@@ -88,11 +88,10 @@ function UsersWords() {
   // };
 
   //TODO figure out audio recording editing without having to delete the word
-
+  // TODO search by category
   return (
     <div className="userAdditions">
       <h4>{user ? user.name + "'s Words" : "Created Words"}</h4>
-      // TODO search by category
       {words && (
         <ul className="wordsList">
           {words.map((word, index) => (
