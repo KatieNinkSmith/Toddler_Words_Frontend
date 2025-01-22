@@ -28,17 +28,9 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
   console.log("Current Word:", currentWord);
 
   return (
-    <div
-      className="carousel"
-      style={{
-        height: "100%",
-        backgroundImage: `url(${currentWord.image})`,
-        backgroundPosition: "center",
-        backgroundSize: "50%",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <div className="carousel">
       <button
+        className="wordbutton"
         onClick={prevWord}
         style={{
           width: "200px",
@@ -51,17 +43,13 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
       <div
         className="main"
         style={{
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "spaceBetween",
-          flexDirection: "column",
-          flex: "center",
+          backgroundImage: `url(${currentWord.image})`,
         }}
       >
         <h2
           style={{
             fontSize: "500%",
-            textShadow: "1px 1px white",
+            textShadow: "1px 1px black",
             marginTop: "10px",
             marginBottom: "250px",
           }}
@@ -71,6 +59,7 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
         <AudioPlayer currentWord={currentWord} />
       </div>
       <button
+        className="wordbutton"
         onClick={nextWord}
         style={{
           width: "200px",

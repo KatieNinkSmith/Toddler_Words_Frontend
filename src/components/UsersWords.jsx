@@ -5,7 +5,7 @@ import {
   deleteWord,
 } from "../utilities/words-services";
 import { useUser } from "../contexts/UserContext";
-import AudioPlayer from "../components/AudioPlayer";
+// import AudioPlayer from "../components/AudioPlayer";
 
 function UsersWords() {
   const [words, setWords] = useState(null);
@@ -29,13 +29,14 @@ function UsersWords() {
     }
   }
 
-  const handleEdit = (word, category, image, audio, userId) => {
+  const handleEdit = (word, category, wordId, image) => {
+    console.log(word, category, image, wordId);
     setEditedForm({
       word: word,
       category: category,
       image: image,
-      audio: audio,
-      user: userId,
+      audio: null,
+      _id: wordId,
     });
     setSuccessMessage(""); // Clear any previous success message when starting to edit
   };
@@ -48,13 +49,13 @@ function UsersWords() {
     }));
   };
 
-  const handleImageEdit = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file, imageURL: "" });
-  };
+  // const handleImageEdit = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData({ ...formData, image: file, imageURL: "" });
+  // };
   const handleImageURLEdit = (e) => {
     const url = e.target.value;
-    setFormData({ ...formData, imageURL: url, image: null }); // Clear image if a URL is entered
+    setFormData({ ...formData, imageURL: url, image: url }); // Clear image if a URL is entered
   };
 
   const cancelEdit = () => {
@@ -75,16 +76,16 @@ function UsersWords() {
     displayWords(); // Re-fetch words after deleting
   }
 
-  const playAudio = (word) => {
-    console.log(word);
-    if (word) {
-      console.log(word.audio);
-      const audio = new Audio(word.audio);
-      audio.play().catch((error) => {
-        console.error("Playback failed:", error);
-      });
-    }
-  };
+  // const playAudio = (word) => {
+  //   console.log(word);
+  //   if (word) {
+  //     console.log(word.audio);
+  //     const audio = new Audio(word.audio);
+  //     audio.play().catch((error) => {
+  //       console.error("Playback failed:", error);
+  //     });
+  //   }
+  // };
 
   //TODO figure out audio recording editing without having to delete the word
 
@@ -110,7 +111,7 @@ function UsersWords() {
                   />
                 ) : null}
                 <br />
-                Audio:
+                {/* Audio:
                 {word.audio ? (
                   <div>
                     <button
@@ -127,7 +128,7 @@ function UsersWords() {
                   </div>
                 ) : (
                   <h2>No Audio </h2>
-                )}
+                )} */}
               </div>
               <div className="wordButton">
                 <button
@@ -176,14 +177,15 @@ function UsersWords() {
             <option>colors</option>
           </select>
           <br />
-          <label>Edit Image:</label>
+          {/* <label>Edit Image:</label>
           <input type="file" onChange={handleImageEdit} />
-          <br />
-          <label>Or enter a new image URL</label>
+          <br /> */}
+          <label>Edit image by entering a new image URL</label>
           <br />
           <input
             type="text"
             name="imageURL"
+            value={editedForm.image}
             onChange={handleImageURLEdit}
             placeholder="Enter image URL"
           />
@@ -192,9 +194,7 @@ function UsersWords() {
             To edit your audio file you will need to delete your word and create
             it again.
           </label>
-          <button onClick={() => handleEditSubmit(editedForm.userId)}>
-            Save
-          </button>
+          <button onClick={() => handleEditSubmit(editedForm._id)}>Save</button>
           <button onClick={cancelEdit}>Cancel</button>
         </div>
       )}

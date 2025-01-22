@@ -9,7 +9,7 @@ function UserProfile() {
   const { user, loading } = useUser();
   const [formData, setFormData] = useState({
     word: "",
-    category: "colors",
+    category: "family",
     image: null,
     imageURL: "",
     audio: null,
@@ -61,7 +61,7 @@ function UserProfile() {
       // Reset form data after a successful submit
       setFormData({
         word: "",
-        category: "colors",
+        category: "family",
         image: null,
         imageURL: "",
         audio: null,
@@ -110,10 +110,10 @@ function UserProfile() {
             <option>places</option>
             <option>things</option>
             <option>clothing</option>
-            <option>counting</option>
+            {/* <option>counting</option>
             <option>food</option>
             <option>animals</option>
-            <option>colors</option>
+            <option>colors</option> */}
           </select>
           <br />
           <label>Upload an image file</label>

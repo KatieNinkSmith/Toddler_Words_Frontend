@@ -41,7 +41,20 @@ a {
 .homeLink:hover {
   transform: scale(1.05); /* Slightly scale up on hover for effect */
 }
-
+.wordContainer {
+  width: 100%;
+}
+.main {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-align: center;
+  display: flex;
+  justify-content: spaceBetween;
+  flex-direction: column;
+  flex: center;
+  width: 100%;
+}
 .signupLogin {
   width: 100%;
   display: flex;
@@ -129,5 +142,11 @@ footer {
   .homeLink {
     width: 200px; /* Reduce width on smaller screens */
     height: 200px; /* Adjust height accordingly */
+  }
+  .wordContainer {
+    width: 100%;
+  }
+  .wordbutton {
+    width: 100px;
   }
 }

@@ -59,6 +59,7 @@ function InteractiveWords() {
 
   return (
     <div
+      className="wordContainer"
       style={{
         backgroundColor: backgroundColor, // Adjusted to set the background color using the word
       }}

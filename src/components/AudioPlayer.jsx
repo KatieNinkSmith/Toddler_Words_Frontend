@@ -62,6 +62,7 @@ const AudioPlayer = ({ currentWord }) => {
       {audioURL ? (
         <div>
           <button
+            className="wordbutton"
             onClick={playAudio}
             style={{
               width: "200px",
