@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSelectedCategory } from "../contexts/SelectedCategoryContext";
+import { useUser } from "../contexts/UserContext";
+import { getUserWords } from "../utilities/words-services";
 
 function Welcome({ setSelectedCategory }) {
   const colorUrl =
@@ -22,94 +24,136 @@ function Welcome({ setSelectedCategory }) {
 
   const { setCategory } = useSelectedCategory();
   const navigate = useNavigate();
+  const { user } = useUser();
+  const [availableCategories, setAvailableCategories] = useState([]);
+  const [words, setWords] = useState([]);
 
-  const [categoriesWithWords, setCategoriesWithWords] = useState([]);
+  const adminCategories = ["colors", "animals", "food", "counting"];
+  const userCategories = user
+    ? availableCategories.filter((category) => category.hasUserWords)
+    : [];
+
+  const categoryUrls = {
+    colors: colorUrl,
+    animals: animalUrl,
+    food: foodUrl,
+    counting: countingUrl,
+    family: familyUrl,
+    places: placesUrl,
+    things: thingsUrl,
+    clothing: clothingUrl,
+  };
+
+  useEffect(() => {
+    if (user && user._id) {
+      displayWords(); // Fetch words once when the user is available
+    }
+  }, [user]);
+
+  async function displayWords() {
+    if (user && user._id) {
+      const userId = user._id;
+      const fetchedWords = await getUserWords(userId); // Assuming this function fetches the user's words
+
+      setWords(fetchedWords); // Store the user's words in state
+
+      // Now check which categories the user has words for
+      const userCategories = [];
+
+      // Check which categories the user has words for
+      const categoriesWithUserWords = [
+        "family",
+        "places",
+        "things",
+        "clothing",
+      ];
+      categoriesWithUserWords.forEach((category) => {
+        const hasWordsInCategory = fetchedWords.some(
+          (word) => word.category === category
+        );
+        if (hasWordsInCategory) {
+          userCategories.push(category);
+        }
+      });
+      console.log(userCategories);
+      // Combine admin categories and user's categories into available categories
+      setAvailableCategories([...adminCategories, ...userCategories]);
+    }
+  }
 
   const handleCategoryClick = (category) => {
     setCategory(category);
     navigate(`/interactivewords/${category}`); // Redirect to the InteractiveWords page with the selected category
   };
-
+  console.log(userCategories);
   return (
     <div>
       <h1>Welcome</h1>
       <div className="homeLinks">
         <div
+          className="homeLink"
           onClick={() => handleCategoryClick("colors")}
-          style={{
-            backgroundImage: colorUrl,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            color: "black",
-            fontSize: "50px",
-          }}
+          style={{ backgroundImage: colorUrl }}
         >
           Colors
         </div>
         <div
+          className="homeLink"
           onClick={() => handleCategoryClick("animals")}
-          style={{
-            backgroundImage: animalUrl,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            color: "black",
-            fontSize: "50px",
-          }}
+          style={{ backgroundImage: animalUrl }}
         >
           Animals
         </div>
         <div
+          className="homeLink"
           onClick={() => handleCategoryClick("food")}
-          style={{
-            backgroundImage: foodUrl,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            color: "black",
-            fontSize: "50px",
-          }}
+          style={{ backgroundImage: foodUrl }}
         >
           Food
         </div>
         <div
+          className="homeLink"
           onClick={() => handleCategoryClick("counting")}
-          style={{
-            backgroundImage: countingUrl,
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            color: "black",
-            fontSize: "50px",
-          }}
+          style={{ backgroundImage: countingUrl }}
         >
-          Numbers
+          Counting
         </div>
-
-        {/* Show additional categories if words exist */}
-        {categoriesWithWords.length > 0 && (
-          <div>
-            {categoriesWithWords.map(({ category, words }) => (
-              <div
-                key={category}
-                onClick={() => handleCategoryClick(category)}
-                style={{
-                  backgroundImage:
-                    category === "family"
-                      ? familyUrl
-                      : category === "places"
-                      ? placesUrl
-                      : category === "things"
-                      ? thingsUrl
-                      : clothingUrl,
-                  backgroundSize: "cover",
-                  backgroundRepeat: "no-repeat",
-                  color: "black",
-                  fontSize: "50px",
-                }}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </div>
-            ))}
+        {availableCategories.includes("family") ? (
+          <div
+            className="homeLink"
+            onClick={() => handleCategoryClick("family")}
+            style={{ backgroundImage: familyUrl }}
+          >
+            Family
           </div>
-        )}
+        ) : null}
+        {availableCategories.includes("places") ? (
+          <div
+            className="homeLink"
+            onClick={() => handleCategoryClick("places")}
+            style={{ backgroundImage: placesUrl }}
+          >
+            Places
+          </div>
+        ) : null}
+        {availableCategories.includes("clothing") ? (
+          <div
+            className="homeLink"
+            onClick={() => handleCategoryClick("clothing")}
+            style={{ backgroundImage: clothingUrl }}
+          >
+            Clothing
+          </div>
+        ) : null}
+        {availableCategories.includes("things") ? (
+          <div
+            className="homeLink"
+            onClick={() => handleCategoryClick("things")}
+            style={{ backgroundImage: thingsUrl }}
+          >
+            Things
+          </div>
+        ) : null}
       </div>
     </div>
   );

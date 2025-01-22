@@ -16,6 +16,7 @@ export async function getUsersWordsByCategory(userId, category) {
     userId,
     category
   );
+  console.log(wordsInCategory);
   return wordsInCategory;
 }
 

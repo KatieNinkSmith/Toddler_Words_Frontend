@@ -13,28 +13,11 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
     }
   }, [currentWordIndex, currentWord, onWordChange]);
 
-  // const nextWord = () => {
-  //   setCurrentWordIndex((prevIndex) => {
-  //     const newIndex = (prevIndex + 1) % words.length; // Ensure circular navigation
-  //     const newImage = words[newIndex]?.image;
-  //     handleWordChange(newIndex, newImage); // Notify parent component about the change
-  //     return newIndex;
-  //   });
-  // };
-  // console.log(selectedCategory);
   const nextWord = () => {
     const nextIndex = (currentWordIndex + 1) % words.length; // Wrap around to first word
     onWordChange(nextIndex); // Change word index in parent component
   };
 
-  // const prevWord = () => {
-  //   setCurrentWordIndex((prevIndex) => {
-  //     const newIndex = (prevIndex - 1 + words.length) % words.length; // Ensure circular navigation
-  //     const newImage = words[newIndex]?.image;
-  //     handleWordChange(newIndex, newImage); // Notify parent component about the change
-  //     return newIndex;
-  //   });
-  // };
   const prevWord = () => {
     const prevIndex = (currentWordIndex - 1 + words.length) % words.length; // Wrap around to last word
     onWordChange(prevIndex); // Change word index in parent component

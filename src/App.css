@@ -1,5 +1,5 @@
 #root {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -15,17 +15,33 @@ a {
   align-items: center;
 }
 .homeLinks {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Ensures the items wrap to the next line if there is not enough space */
+  width: 100%;
+  margin-top: 5px; /* Add some spacing from the top */
 }
-.homeLinks div {
-  width: 250px;
-  height: 250px;
-  margin: 10px;
+.homeLink {
+  width: 250px; /* Fixed width for each item */
+  height: 250px; /* Fixed height for each item */
+  margin: 5px; /* Margin between items */
+  display: flex; /* Center the content inside each item */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px black;
+  font-size: xx-large;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+  transition: transform 0.2s ease;
 }
+.homeLink:hover {
+  transform: scale(1.05); /* Slightly scale up on hover for effect */
+}
+
 .signupLogin {
   width: 100%;
   display: flex;
@@ -108,4 +124,10 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 768px) {
+  .homeLink {
+    width: 200px; /* Reduce width on smaller screens */
+    height: 200px; /* Adjust height accordingly */
+  }
 }
