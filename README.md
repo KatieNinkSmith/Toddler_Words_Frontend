@@ -65,7 +65,7 @@ https://wireframe.cc/iOPRBx
 
 ###### Color interactive page:
 
-![Color page](./public/images/colorsInteractivePage)
+![Color page](./public/images/colorsInteractivePage.png)
 https://wireframe.cc/fvufJP
 
 ###### Animals interactive page:
@@ -93,6 +93,11 @@ https://wireframe.cc/aeJX58
 ###### Screen recording for recording a word:
 
 ![User record audio for a word](./public/images/screenRecording.mp4)
+
+<video width="320" height="240" controls>
+  <source src="./public/images/screenRecording.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ###### User's preview of created words (Audio playback feature in progress)
 
