@@ -1,31 +1,153 @@
-## Toddler Words Learning application
+### Toddler Words Learning Application
 
-URL for deployed site
-Frontend is deployed at: https://toddlerwords.netlify.app/
-Backend is deployed at: https://toddler-words-backend.onrender.com
+# Overview
 
-GitHub repo:
-Frontend: https://github.com/KatieNinkSmith/Toddler_Words_Frontend
-Backend: https://github.com/KatieNinkSmith/Toddler_Words_Backend
+The Toddler Words Learning Application is a web-based platform designed to help toddlers learn basic words across several categories. Inspired by my daughter’s eagerness to learn, this app features real-life images and audio for words in four key categories: Colors, Animals, Food, and Counting. The goal is to make learning fun and accessible, while providing parents with a tool to help their children start recognizing and pronouncing words.
 
-This is my capstone project encompassing my MERN software engineering knowledge and understanding. I created a toddler learning application, my daughter inspired this idea. She is so eager to learn and I was not finding a reasource similar avalible, so I have created this application.
+**Frontend (Deployed):** Toddler Words Frontend
+**Backend (Deployed):** Toddler Words Backend
+**Frontend GitHub Repo:** Toddler Words Frontend GitHub
+**Backend GitHub Repo:** Toddler Words Backend GitHub
 
-I have a basic welcome page that includes 4 categories of words Colors, Animals, Food and counting. I found real life pictures to correlate to what children see in real life. I have hand picked hundreds of pictures to ensure they are child appropriate, and listened to the audio for all the words provided in these categories.
+# Features
 
-It is simple so that even a small child can understand how to function this application on the main page one of the categories is clicked on and it will redirect to a page that displays the written word an image/color associated with the word and a button to play the audio for the word.
+### Main Categories:
 
-Defualt audio is pulled from an API https://dictionaryapi.dev/
+**Colors:** Includes basic rainbow colors, though orange does not have an audio file available.
+**Animals:** A variety of animals from around the world.
+**Food:** A selection of foods toddlers might encounter in early life.
+**Counting:** Numbers from 1 to 10.
 
-# Colors are most rainbow colors however orange failed to have an audio file.
+### User-Added Categories: Users can add new words, images, and audio files under the following custom categories:
 
-# Animals are a large variety from around the world.
+**Family**
+**Places**
+**Clothing**
+**Things**
+(Note: The functionality to save files correctly is still under development.)
 
-# Food is close to the first 100 foods your child should try.
+# Functionality
 
-# Counting is 1-10.
+**Interactive Learning:** Users can click on a category to be taken to a page displaying:
 
-# Users are able to add to 4 categories Family, Places, Clothing and Things. They can add the name/word an image and audio file. At this time my file saving function is not saving correctly to use when pulled from the database and must be corrected.
+The word written out.
+A corresponding image or color.
+A button to play the audio for the word (default audio is pulled from the API: Dictionary API).
+Customization: Users can add their own words, images, and audio to enrich the learning experience, though the feature is currently being debugged for proper file-saving functionality.
 
-# I would also like to add the Alphabet however I will nedd to fix my audio blob file saving to do so.
+# Future Plans
 
-Alphebet page nav image: https://plus.unsplash.com/premium_photo-1666739032615-ecbd14dfb543?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YWxwaGFiZXR8ZW58MHx8MHx8fDA%3D
+**Alphabet:** Plans to include the alphabet with audio, though the file-saving issue must be resolved first.
+**Bug Fixes:** Work is underway to correct the file-saving function for uploaded audio files.
+
+# Inspiration
+
+This project was inspired by my daughter, who is eager to learn and engage with new words. I couldn't find a resource that met her needs, so I built this app to provide her with an interactive and child-friendly learning experience.
+
+# Tech Stack
+
+Frontend: React.js
+Backend: Node.js, Express.js
+Database: MongoDB
+Audio API: Dictionary API
+
+# Screenshots & Navigation
+
+###### This is the welcome page when a user is not signed in
+
+![Welcome page, without a user](./public/images/welcomePageNoUser.png)
+this was my wireframe for the welcome page
+https://wireframe.cc/iOPRBx
+
+###### This is how the color interactive page displays
+
+![Color page](./public/image/colorsInteractivePage)
+This is the wireframe for the color word interactive pages
+https://wireframe.cc/fvufJP
+
+###### This is how the color interactive page displays
+
+![Animals page](./public/images/animalInteravtivePage.png)
+This is the wireframe for all other interactive pages
+https://wireframe.cc/sIq7qQ
+
+###### This is how the color interactive page displays
+
+![Food page](./public/images/foodInteractivePage.png)
+
+###### This is how the color interactive page displays
+
+![Counting page](./public/images/countingInteractivePage.png)
+
+###### This is what the register and sign in page displays
+
+![Sign up and Log in page](./public/images/userSignUpAndLogIn.png)
+This is the wireframe for the sign up and log in page
+https://wireframe.cc/aeJX58
+
+###### This is the form for the user to create a word
+
+![User create word](./public/images/userCreatWord.png)
+
+###### This is a screen recording to show how to record a word
+
+![User record audio for a word](./public/images/screenRecording.mp4)
+
+###### This is how the users preview of their created words looks, the addition to listen to their audio file will be added once the audio blob is saved correctly to play later.
+
+![Users preview of their words](./public/images/userWordPreview.png)
+This is the wire from for the user profile showing the word creation form and what the preview section was intended to look like.
+https://wireframe.cc/tfkCQs
+
+###### This how the welcome page looks when a user is logged in and has added words to all avalible categories
+
+![Welcome page, with a user](./public/images/welcomePageWithUserCat.png)
+https://wireframe.cc/ak6U6H
+
+###### This is how the color interactive page displays
+
+![Family page](./public/images/familyInteractivePage.png)
+
+###### This is how the color interactive page displays
+
+![Places page](./public/images/placesInteractivePage.png)
+
+###### This is how the color interactive page displays
+
+![Clothing page](./public/images/clothingInteractivePage.png)
+
+###### This is how the color interactive page displays
+
+![Things page](./public/images/thingsInteractivePage.png)
+
+# How to Run the Application Locally
+
+# 1. Clone the repositories:
+
+**Frontend:** git clone https://github.com/KatieNinkSmith/Toddler_Words_Frontend
+**Backend:** git clone https://github.com/KatieNinkSmith/Toddler_Words_Backend
+
+# 2. Install dependencies:
+
+Navigate to the frontend and backend folders and run:
+
+`js npm install`
+
+# 3. Start the local server:
+
+For the Backend:
+`js npm start`
+For the Frontend:
+`js npm start`
+
+# 4. Visit http://localhost:3000 in your browser to view the app.
+
+# Contributing
+
+If you'd like to contribute to this project, feel free to submit issues or pull requests on GitHub. Contributions are always welcome!
+
+# License
+
+This project is open-source and available under the MIT License.
+
+[def]: ./public/images/colo

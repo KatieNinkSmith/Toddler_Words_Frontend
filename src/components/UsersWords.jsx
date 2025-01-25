@@ -170,10 +170,10 @@ function UsersWords() {
             <option>places</option>
             <option>things</option>
             <option>clothing</option>
-            <option>counting</option>
+            {/* <option>counting</option>
             <option>food</option>
             <option>animals</option>
-            <option>colors</option>
+            <option>colors</option> */}
           </select>
           <br />
           {/* <label>Edit Image:</label>

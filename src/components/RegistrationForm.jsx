@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { signUp } from "../utilities/users-services";
-import { useNavigate } from "react-router";
 
 function SignUpForm() {
   const [user, setUser] = useState("");
@@ -11,7 +10,6 @@ function SignUpForm() {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +23,7 @@ function SignUpForm() {
       delete submitData.confirmPassword;
       const user = await signUp(submitData);
       setUser(user);
-      navigate("/profile", { state: { user } });
+      window.location.href = "https://toddlerwords.netlify.app/profile";
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || "Log in Failed - Try Again";
