@@ -53,70 +53,72 @@ Audio API: Dictionary API
 
 # Screenshots & Navigation
 
-###### This is the welcome page when a user is not signed in
+###### Below are some of the pages in the app, including their wireframes:
+
+###### Welcome page (when a user is not signed in):
 
 ![Welcome page, without a user](./public/images/welcomePageNoUser.png)
 this was my wireframe for the welcome page
 https://wireframe.cc/iOPRBx
 
-###### This is how the color interactive page displays
+### Interactive pages when no user is logged in:
 
-![Color page](./public/image/colorsInteractivePage)
-This is the wireframe for the color word interactive pages
+###### Color interactive page:
+
+![Color page](./public/images/colorsInteractivePage)
 https://wireframe.cc/fvufJP
 
-###### This is how the color interactive page displays
+###### Animals interactive page:
 
 ![Animals page](./public/images/animalInteravtivePage.png)
-This is the wireframe for all other interactive pages
 https://wireframe.cc/sIq7qQ
 
-###### This is how the color interactive page displays
+###### Food interactive page:
 
 ![Food page](./public/images/foodInteractivePage.png)
 
-###### This is how the color interactive page displays
+###### Counting interactive page:
 
 ![Counting page](./public/images/countingInteractivePage.png)
 
-###### This is what the register and sign in page displays
+###### Register and sign in page:
 
 ![Sign up and Log in page](./public/images/userSignUpAndLogIn.png)
-This is the wireframe for the sign up and log in page
 https://wireframe.cc/aeJX58
 
-###### This is the form for the user to create a word
+###### User word creation form:
 
 ![User create word](./public/images/userCreatWord.png)
 
-###### This is a screen recording to show how to record a word
+###### Screen recording for recording a word:
 
 ![User record audio for a word](./public/images/screenRecording.mp4)
 
-###### This is how the users preview of their created words looks, the addition to listen to their audio file will be added once the audio blob is saved correctly to play later.
+###### User's preview of created words (Audio playback feature in progress)
 
 ![Users preview of their words](./public/images/userWordPreview.png)
-This is the wire from for the user profile showing the word creation form and what the preview section was intended to look like.
 https://wireframe.cc/tfkCQs
 
-###### This how the welcome page looks when a user is logged in and has added words to all avalible categories
+###### Welcome page (Logged in and has added words to all avalible categories)
 
 ![Welcome page, with a user](./public/images/welcomePageWithUserCat.png)
 https://wireframe.cc/ak6U6H
 
-###### This is how the color interactive page displays
+### Interactive Pages for User-Added Categories:
+
+###### Family interactive page:
 
 ![Family page](./public/images/familyInteractivePage.png)
 
-###### This is how the color interactive page displays
+###### Places interactive page:
 
 ![Places page](./public/images/placesInteractivePage.png)
 
-###### This is how the color interactive page displays
+###### Clothing interactive page:
 
 ![Clothing page](./public/images/clothingInteractivePage.png)
 
-###### This is how the color interactive page displays
+###### Things interactive page:
 
 ![Things page](./public/images/thingsInteractivePage.png)
 
