@@ -3,14 +3,19 @@ import {
   getUserWords,
   editWord,
   deleteWord,
+  getUsersWordsByCategory,
 } from "../utilities/words-services";
 import { useUser } from "../contexts/UserContext";
+import AudioPlayer from "../components/AudioPlayer";
 
 function UsersWords() {
   const [words, setWords] = useState(null);
   const { user, loading } = useUser();
   const [editedForm, setEditedForm] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [formSearch, setFormSearch] = useState({
+    category: "",
+  });
 
   // Fetch words when the component mounts (or when `user` changes)
   useEffect(() => {
@@ -76,22 +81,58 @@ function UsersWords() {
     displayWords();
   }
 
-  // const playAudio = (word) => {
-  //   console.log(word);
-  //   if (word) {
-  //     console.log(word.audio);
-  //     const audio = new Audio(word.audio);
-  //     audio.play().catch((error) => {
-  //       console.error("Playback failed:", error);
-  //     });
-  //   }
-  // };
+  const playAudio = (word) => {
+    console.log(word);
+    if (word) {
+      console.log(word.audio);
+      const audio = new Audio(word.audio);
+      audio.play().catch((error) => {
+        console.error("Playback failed:", error);
+      });
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    const { name, value } = e.target;
+    setFormSearch((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  };
+
+  const submitSearch = async () => {
+    if (formSearch.category) {
+      const userCat = user._id;
+      const fetchedWords = await getUsersWordsByCategory(
+        userCat,
+        formSearch.category
+      );
+      setWords(fetchedWords); // Update words state with the fetched results
+    } else {
+      setWords([]); // Clear if no category is selected
+    }
+  };
 
   //TODO figure out audio recording editing without having to delete the word
   // TODO search by category
   return (
     <div className="userAdditions">
       <h4>{user ? user.name + "'s Words" : "Created Words"}</h4>
+      <label>Search by category:</label>
+      <select
+        name="category"
+        value={formSearch.category}
+        onChange={handleSearchChange}
+        required
+      >
+        <option value="">Select a category</option>
+        <option value="family">Family</option>
+        <option value="places">Places</option>
+        <option value="things">Things</option>
+        <option value="clothing">Clothing</option>
+      </select>
+      <br />
+      <button onClick={submitSearch}>Search</button>
       {words && (
         <ul className="wordsList">
           {words.map((word, index) => (
@@ -110,7 +151,7 @@ function UsersWords() {
                   />
                 ) : null}
                 <br />
-                {/* Audio:
+                Audio:
                 {word.audio ? (
                   <div>
                     <button
@@ -127,7 +168,7 @@ function UsersWords() {
                   </div>
                 ) : (
                   <h2>No Audio </h2>
-                )} */}
+                )}
               </div>
               <div className="wordButton">
                 <button
