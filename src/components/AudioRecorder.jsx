@@ -18,23 +18,31 @@ export default function AudioRecord({ onRecordingComplete }) {
     onError: (error) => console.log("RECORDING ERROR!", error),
   });
 
-  const viewInitial = <button onClick={recorder.start}>start recording</button>;
+  const viewInitial = (
+    <button type="button" onClick={recorder.start}>
+      start recording
+    </button>
+  );
 
   const viewRecording = (
     <>
-      <button onClick={recorder.stop}>
+      <button type="button" onClick={recorder.stop}>
         stop recording ({(recorder.time / 1000.0).toFixed(1) + "s"})
       </button>
-      <button onClick={recorder.pause}>pause</button>
+      <button type="button" onClick={recorder.pause}>
+        pause
+      </button>
     </>
   );
 
   const viewPaused = (
     <>
-      <button onClick={recorder.stop}>
+      <button type="button" onClick={recorder.stop}>
         stop recording ({(recorder.time / 1000.0).toFixed(1) + "s"})
       </button>
-      <button onClick={recorder.resume}>resume</button>
+      <button type="button" onClick={recorder.resume}>
+        resume
+      </button>
     </>
   );
 
