@@ -164,10 +164,10 @@ function UsersWords() {
                     >
                       PLAY
                     </button>
-                    <AudioPlayer currentWord={word.audio} />
+                    {/* <AudioPlayer currentWord={word.audio} /> */}
                   </div>
                 ) : (
-                  <h2>No Audio </h2>
+                  <p>No Audio </p>
                 )}
               </div>
               <div className="wordButton">
