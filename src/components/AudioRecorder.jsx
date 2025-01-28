@@ -16,7 +16,13 @@ export default function AudioRecord({
 
     onDataAvailable: (data) => console.log("DATA AVAILABLE", data.length),
     onComplete: (mp3Blob) => {
-      onRecordingComplete(mp3Blob.mp3Url);
+      if (mp3Blob) {
+        // Log the MP3 URL and other data to confirm it's being generated correctly
+        console.log("MP3 URL:", mp3Blob.mp3Url);
+        onRecordingComplete(mp3Blob.mp3Url); // Ensure this is called correctly
+      } else {
+        console.error("Recording failed or generated empty audio.");
+      }
     },
 
     onError: (error) => console.log("RECORDING ERROR!", error),

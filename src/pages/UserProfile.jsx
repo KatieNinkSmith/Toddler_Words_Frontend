@@ -70,32 +70,50 @@ function UserProfile() {
   //TODO find an api that transforms a blob into the correct url formate to store and use later
   // Example function to upload an audio file
   const handleRecordingComplete = async (audioBlob) => {
-    console.log(audioBlob);
-    if (audioBlob) {
-      const storageRef = ref(
-        storage,
-        "audio/" + Date.now() + "-" + audioBlob.name
-      );
+    console.log("Audio Blob received:", audioBlob);
+    console.log("Blob size:", audioBlob.size); // Check the size of the blob
+    console.log("Blob MIME type:", audioBlob.type); // Ensure it's an audio type
+
+    // Manually create a File from the audioBlob with a correct MIME type (assuming MP3)
+    const file = new File([audioBlob], Date.now() + "-audio.mp3", {
+      type: "audio/mpeg", // Set MIME type to audio/mpeg
+    });
+    // Log to confirm the file details
+    console.log("File created:", file);
+    console.log("File size:", file.size);
+    console.log("File MIME type:", file.type);
+
+    if (file && file.type === "audio/mpeg") {
+      const fileName = Date.now() + "-audio.mp3"; // Ensure the file has a .mp3 extension
+      const storageRef = ref(storage, "audio/" + fileName);
+
       try {
-        const snapshot = await uploadBytes(storageRef, audioBlob);
+        // Upload the file to Firebase Storage
+        const snapshot = await uploadBytes(storageRef, file);
         console.log("Uploaded a file!", snapshot.ref);
 
-        const audioURL = await getDownloadURL(snapshot.ref); // Wait for the URL to resolve
+        // Get the download URL of the uploaded audio file
+        const audioURL = await getDownloadURL(snapshot.ref);
         console.log("Audio uploaded successfully, URL:", audioURL);
 
+        // Set the form data with the audio URL
         setFormData((prevFormData) => ({
           ...prevFormData,
           audio: audioURL,
         }));
-        console.log(formData); // Check the updated form data
+        console.log("Updated form data:", formData);
       } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error("Error uploading audio:", error);
       }
+    } else {
+      console.error("The audio file is not an MP3 file. MIME type:", file.type);
+      alert("Please ensure the audio is recorded in MP3 format.");
     }
   };
-  useEffect(() => {
-    console.log(formData); // This will show the updated formData after the state change
-  }, [formData]);
+
+  // useEffect(() => {
+  //   console.log(formData); // This will show the updated formData after the state change
+  // }, [formData]);
 
   const handleSaveWord = async (e) => {
     e.preventDefault();
