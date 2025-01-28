@@ -5,7 +5,7 @@ function Footer() {
   return (
     <div>
       <p style={{ fontSize: "30%" }}>
-        All images are courtesy of{" "}
+        All images not uploaded by user are courtesy of{" "}
         <Link to={"https://unsplash.com/"}>unsplash.com</Link>
       </p>
     </div>

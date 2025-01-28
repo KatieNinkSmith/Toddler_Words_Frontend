@@ -3,6 +3,8 @@ import { useUser } from "../contexts/UserContext";
 import AudioRecord from "../components/AudioRecorder";
 import { createWord } from "../utilities/words-services";
 import UsersWords from "../components/UsersWords";
+import { app, storage } from "../utilities/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // ** file file saves and blob saves so that they can save AND be read later
 function UserProfile() {
@@ -10,13 +12,14 @@ function UserProfile() {
   const [formData, setFormData] = useState({
     word: "",
     category: "family",
-    image: null,
+    image: "",
     imageURL: "",
-    audio: null,
+    audio: "",
     user: user ? user._id : "",
   });
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [resetRecorderFlag, setResetRecorderFlag] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -32,25 +35,67 @@ function UserProfile() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  // TODO impliment https://api.imgbb.com/ so that it is only storing a url
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, image: file, imageURL: "" });
+  const handleImageChange = async (e) => {
+    console.log(e.target.files[0]);
+    const image = e.target.files[0];
+    if (image) {
+      const storageRef = ref(
+        storage,
+        "images/" + Date.now() + "-" + image.name
+      );
+      try {
+        const snapshot = await uploadBytes(storageRef, image);
+        console.log("Uploaded a file!", snapshot.ref);
+
+        const imageURL = await getDownloadURL(snapshot.ref); // Wait for the URL to resolve
+        console.log("Image uploaded successfully, URL:", imageURL);
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          image: imageURL,
+          imageURL: "", // Set the image URL properly
+        }));
+        console.log(formData); // Check the updated form data
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
   };
 
   const handleImageURLChange = (e) => {
     const url = e.target.value;
-    setFormData({ ...formData, imageURL: url, image: null });
+    setFormData({ ...formData, imageURL: url, image: "" });
   };
 
   //TODO find an api that transforms a blob into the correct url formate to store and use later
-  const handleRecordingComplete = async (audioUrl) => {
-    console.log("Received audio URL:", audioUrl);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      audio: audioUrl,
-    }));
+  // Example function to upload an audio file
+  const handleRecordingComplete = async (audioBlob) => {
+    console.log(audioBlob);
+    if (audioBlob) {
+      const storageRef = ref(
+        storage,
+        "audio/" + Date.now() + "-" + audioBlob.name
+      );
+      try {
+        const snapshot = await uploadBytes(storageRef, audioBlob);
+        console.log("Uploaded a file!", snapshot.ref);
+
+        const audioURL = await getDownloadURL(snapshot.ref); // Wait for the URL to resolve
+        console.log("Audio uploaded successfully, URL:", audioURL);
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          audio: audioURL,
+        }));
+        console.log(formData); // Check the updated form data
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
   };
+  useEffect(() => {
+    console.log(formData); // This will show the updated formData after the state change
+  }, [formData]);
 
   const handleSaveWord = async (e) => {
     e.preventDefault();
@@ -59,16 +104,20 @@ function UserProfile() {
 
     try {
       const submitWord = { ...formData };
+      console.log(formData);
       await createWord(submitWord);
+      console.log(submitWord);
       setFormData({
         word: "",
         category: "family",
-        image: null,
+        image: "",
         imageURL: "",
-        audio: null,
+        audio: "",
         user: user._id,
       });
       setSuccessMessage("Word successfully added!");
+      setResetRecorderFlag(true);
+      setTimeout(() => setResetRecorderFlag(false), 100);
     } catch (error) {
       console.error("Error sending data to backend:", error);
       setErrorMessage("Failed to add word. Please try again.");
@@ -132,7 +181,10 @@ function UserProfile() {
           />
           <br />
           <label>Record a sound clip</label>
-          <AudioRecord onRecordingComplete={handleRecordingComplete} />
+          <AudioRecord
+            onRecordingComplete={handleRecordingComplete}
+            resetRecorderFlag={resetRecorderFlag}
+          />
           <br />
           <button type="submit">SAVE WORD</button>
         </form>

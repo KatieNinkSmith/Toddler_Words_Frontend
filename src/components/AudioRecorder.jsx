@@ -4,8 +4,12 @@ import {
   preloadWorker,
   RecorderStates,
 } from "simple-audio-recorder/react";
+import { useEffect } from "react";
 
-export default function AudioRecord({ onRecordingComplete }) {
+export default function AudioRecord({
+  onRecordingComplete,
+  resetRecorderFlag,
+}) {
   const recorder = useSimpleAudioRecorder({
     workerUrl:
       "https://cdn.jsdelivr.net/npm/simple-audio-recorder@1.1.0/dist/mp3worker.js",
@@ -17,6 +21,15 @@ export default function AudioRecord({ onRecordingComplete }) {
 
     onError: (error) => console.log("RECORDING ERROR!", error),
   });
+
+  useEffect(() => {
+    if (resetRecorderFlag) {
+      if (recorder.state === "recording") {
+        recorder.stop(); // Stop recording if it's in progress
+      }
+      recorder.mp3Urls.length = 0; // Clear the recorded audio
+    }
+  }, [resetRecorderFlag, recorder]);
 
   const viewInitial = (
     <button type="button" onClick={recorder.start}>

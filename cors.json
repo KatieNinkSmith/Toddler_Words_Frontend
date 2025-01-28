@@ -1,0 +1,12 @@
+[
+  {
+    "origin": [
+      "*",
+      "http://localhost:5173",
+      "https://toddlerwords.netlify.app/"
+    ],
+    "method": ["GET", "POST", "PUT"],
+    "responseHeader": ["Content-Type"],
+    "maxAgeSeconds": 3600
+  }
+]
