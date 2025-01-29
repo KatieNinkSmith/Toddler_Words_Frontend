@@ -148,7 +148,8 @@ function CreateWords() {
     return <div>No user logged in.</div>;
   }
   return (
-    <div>
+    <div className="userProfile">
+      <div> Hi! {user.name} </div>
       <p>Add a word for your child to learn</p>
       <form onSubmit={handleSaveWord}>
         <input
