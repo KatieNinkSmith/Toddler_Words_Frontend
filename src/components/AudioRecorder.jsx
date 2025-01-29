@@ -14,13 +14,24 @@ export default function AudioRecord({
     workerUrl:
       "https://cdn.jsdelivr.net/npm/simple-audio-recorder@1.1.0/dist/mp3worker.js",
 
-    onDataAvailable: (data) => console.log("DATA AVAILABLE", data.length),
+    onDataAvailable: (data) => console.log("DATA size", data.length),
     onComplete: (mp3Blob) => {
-      if (mp3Blob) {
-        // Log the MP3 URL and other data to confirm it's being generated correctly
-        console.log("MP3 URL:", mp3Blob.mp3Url);
-        onRecordingComplete(mp3Blob.mp3Url); // Ensure this is called correctly
+      console.log("MP3 Blob Data:", mp3Blob); // Log full blob object
+
+      // Ensure it's a valid Blob
+      if (mp3Blob instanceof Blob) {
+        console.log("MP3 Blob is a valid Blob object");
+        console.log("MP3 Blob Size:", mp3Blob.size);
+        console.log("MP3 Blob type:", mp3Blob.type);
       } else {
+        console.error("Invalid MP3 Blob:", mp3Blob);
+      }
+
+      if (mp3Blob && mp3Blob.size > 0 && mp3Blob.type === "audio/mpeg") {
+        console.log("Valid audio data received.");
+        onRecordingComplete(mp3Blob); // Send the valid blob to the parent
+      } else {
+        console.error("Invalid MP3 Blob:", mp3Blob);
         console.error("Recording failed or generated empty audio.");
       }
     },
