@@ -15,7 +15,7 @@ const AudioPlayer = ({ currentWord }) => {
             `https://api.dictionaryapi.dev/api/v2/entries/en/${formattedWord}`
           );
           const data = await response.json();
-
+          console.log(data);
           let audioFileURL = "";
           for (let i = 0; i < data[0]?.phonetics.length; i++) {
             if (data[0]?.phonetics[i]?.audio) {
@@ -23,7 +23,7 @@ const AudioPlayer = ({ currentWord }) => {
               break;
             }
           }
-
+          console.log(audioFileURL);
           if (audioFileURL) {
             setAudioURL(audioFileURL);
           } else {
@@ -42,8 +42,15 @@ const AudioPlayer = ({ currentWord }) => {
 
   const playAudio = () => {
     if (audioURL) {
-      const audio = new Audio(audioURL.audio);
-      console.log(audioURL);
+      let audioSource;
+
+      // Check if audioURL is an object (user-created audio) or a string (API-provided audio)
+      if (typeof audioURL === "object" && audioURL.audio) {
+        audioSource = audioURL.audio; // For user-created audio
+      } else {
+        audioSource = audioURL; // For API-provided audio
+      }
+      const audio = new Audio(audioSource);
       audio.play().catch((error) => {
         console.error("Playback failed:", error);
       });
