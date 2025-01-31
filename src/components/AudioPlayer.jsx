@@ -42,7 +42,8 @@ const AudioPlayer = ({ currentWord }) => {
 
   const playAudio = () => {
     if (audioURL) {
-      const audio = new Audio(audioURL);
+      const audio = new Audio(audioURL.audio);
+      console.log(audioURL);
       audio.play().catch((error) => {
         console.error("Playback failed:", error);
       });

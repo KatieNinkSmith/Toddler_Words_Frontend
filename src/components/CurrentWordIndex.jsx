@@ -24,7 +24,7 @@ function CurrentWordIndex({ words, currentWordIndex, onWordChange }) {
 
   if (!currentWord) return <div>Loading...</div>;
 
-  console.log("Current Word:", currentWord);
+  console.log("Current Word:", currentWord.image);
 
   return (
     <div className="carousel">

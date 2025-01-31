@@ -11,7 +11,6 @@ function CreateWords() {
     word: "",
     category: "family",
     image: "",
-    imageURL: "",
     audio: "",
     user: user ? user._id : "",
   });
@@ -21,7 +20,6 @@ function CreateWords() {
 
   useEffect(() => {
     if (user) {
-      console.log("user data avalible:", user);
       setFormData((prevFormData) => ({
         ...prevFormData,
         user: user._id,
@@ -34,84 +32,67 @@ function CreateWords() {
   }
 
   const handleImageChange = async (e) => {
-    console.log(e.target.files[0]);
     const image = e.target.files[0];
     if (image) {
-      const storageRef = ref(
-        storage,
-        "images/" + Date.now() + "-" + image.name
-      );
       try {
-        const snapshot = await uploadBytes(storageRef, image);
-        console.log("Uploaded a file!", snapshot.ref);
+        // Create an image element and load the file into it
+        const img = new Image();
+        const objectURL = URL.createObjectURL(image);
+        img.src = objectURL;
 
-        const imageURL = await getDownloadURL(snapshot.ref); // Wait for the URL to resolve
-        console.log("Image uploaded successfully, URL:", imageURL);
+        // Wait for the image to load
+        await new Promise((resolve) => {
+          img.onload = resolve;
+        });
+
+        // Create a canvas to draw the image and convert it to jpeg format
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+
+        // Convert the image on the canvas to a jpeg Blob (quality 0.8, can adjust quality)
+        const jpegBlob = await new Promise((resolve) => {
+          canvas.toBlob(resolve, "image/jpeg", 0.8); // Convert to jpeg with a quality of 0.8
+        });
+
+        // Create a new file from the jpeg Blob
+        const jpegFile = new File([jpegBlob], `${Date.now()}.jpeg`, {
+          type: "image/jpeg",
+        });
+
+        // Upload the jpeg file to Firebase Storage
+        const storageRef = ref(storage, `images/${jpegFile.name}`);
+        const snapshot = await uploadBytes(storageRef, jpegFile);
+        const imageURL = await getDownloadURL(snapshot.ref());
 
         setFormData((prevFormData) => ({
           ...prevFormData,
           image: imageURL,
-          imageURL: "", // Set the image URL properly
         }));
-        console.log(formData); // Check the updated form data
       } catch (error) {
         console.error("Error uploading image:", error);
       }
     }
   };
 
-  const handleImageURLChange = (e) => {
-    const url = e.target.value;
-    setFormData({ ...formData, imageURL: url, image: "" });
-  };
-
-  //TODO find an api that transforms a blob into the correct url formate to store and use later
-  // Example function to upload an audio file
-  const handleRecordingComplete = async (mp3Blob) => {
-    console.log("Audio Blob received:", mp3Blob);
-    console.log("Blob size:", mp3Blob.size); // Check the size of the blob
-    console.log("Blob MIME type:", mp3Blob.type); // Ensure it's an audio type
-
-    // Manually create a File from the mp3Blob with a correct MIME type (assuming MP3)
-    const file = new File([mp3Blob], Date.now() + "-audio.mp3", {
-      type: "audio/mpeg", // Set MIME type to audio/mpeg
+  const handleRecordingComplete = async (audioBlob) => {
+    const file = new File([audioBlob], `${Date.now()}-audio.wav`, {
+      type: "audio/wav",
     });
-    // Log to confirm the file details
-    console.log("File created:", file);
-    console.log("File size:", file.size);
-    console.log("File MIME type:", file.type);
-
-    if (file && file.type === "audio/mpeg") {
-      const fileName = Date.now() + "-audio.mp3"; // Ensure the file has a .mp3 extension
-      const storageRef = ref(storage, "audio/" + fileName);
-
-      try {
-        // Upload the file to Firebase Storage
-        const snapshot = await uploadBytes(storageRef, file);
-        console.log("Uploaded a file!", snapshot.ref);
-
-        // Get the download URL of the uploaded audio file
-        const audioURL = await getDownloadURL(snapshot.ref);
-        console.log("Audio uploaded successfully, URL:", audioURL);
-
-        // Set the form data with the audio URL
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          audio: audioURL,
-        }));
-        console.log("Updated form data:", formData);
-      } catch (error) {
-        console.error("Error uploading audio:", error);
-      }
-    } else {
-      console.error("The audio file is not an MP3 file. MIME type:", file.type);
-      alert("Please ensure the audio is recorded in MP3 format.");
+    const storageRef = ref(storage, `audio/${file.name}`);
+    try {
+      const snapshot = await uploadBytes(storageRef, file);
+      const audioURL = await getDownloadURL(snapshot.ref);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        audio: audioURL,
+      }));
+    } catch (error) {
+      console.error("Error uploading audio:", error);
     }
   };
-
-  // useEffect(() => {
-  //   console.log(formData); // This will show the updated formData after the state change
-  // }, [formData]);
 
   const handleSaveWord = async (e) => {
     e.preventDefault();
@@ -120,17 +101,16 @@ function CreateWords() {
 
     try {
       const submitWord = { ...formData };
-      console.log(formData);
       await createWord(submitWord);
-      console.log(submitWord);
+
       setFormData({
         word: "",
         category: "family",
         image: "",
-        imageURL: "",
         audio: "",
         user: user._id,
       });
+
       setSuccessMessage("Word successfully added!");
       setResetRecorderFlag(true);
       setTimeout(() => setResetRecorderFlag(false), 100);
@@ -140,13 +120,19 @@ function CreateWords() {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handleStartNewRecording = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      audio: "", // Clear audio when re-recording
+    }));
+    setResetRecorderFlag(true);
+    setTimeout(() => setResetRecorderFlag(false), 100); // Reset flag after a small timeout
+  };
 
-  if (!user) {
-    return <div>No user logged in.</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+
+  if (!user) return <div>No user logged in.</div>;
+
   return (
     <div className="userProfile">
       <div> Hi! {user.name} </div>
@@ -184,21 +170,14 @@ function CreateWords() {
         <br />
         <input type="file" onChange={handleImageChange} />
         <br />
-        <label>Or enter an image URL</label>
-        <br />
-        <input
-          type="text"
-          name="imageURL"
-          value={formData.imageURL}
-          onChange={handleImageURLChange}
-          placeholder="Enter image URL"
-        />
-        <br />
         <label>Record a sound clip</label>
         <AudioRecord
           onRecordingComplete={handleRecordingComplete}
           resetRecorderFlag={resetRecorderFlag}
         />
+        <button type="button" onClick={handleStartNewRecording}>
+          Start New Recording
+        </button>
         <br />
         <button type="submit">SAVE WORD</button>
       </form>

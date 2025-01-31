@@ -112,7 +112,6 @@ function UsersWords() {
       setWords([]); // Clear if no category is selected
     }
   };
-
   //TODO figure out audio recording editing without having to delete the word
   // TODO search by category
   return (

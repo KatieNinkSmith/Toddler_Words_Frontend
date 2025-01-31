@@ -1,102 +1,91 @@
-import {
-  useSimpleAudioRecorder,
-  SimpleAudioRecorder,
-  preloadWorker,
-  RecorderStates,
-} from "simple-audio-recorder/react";
-import { useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function AudioRecord({
   onRecordingComplete,
   resetRecorderFlag,
 }) {
-  const recorder = useSimpleAudioRecorder({
-    workerUrl:
-      "https://cdn.jsdelivr.net/npm/simple-audio-recorder@1.1.0/dist/mp3worker.js",
+  const [recording, setRecording] = useState(false);
+  const [audioURL, setAudioURL] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-    onDataAvailable: (data) => console.log("DATA size", data.length),
-    onComplete: (mp3Blob) => {
-      console.log("MP3 Blob Data:", mp3Blob); // Log full blob object
-
-      // Ensure it's a valid Blob
-      if (mp3Blob instanceof Blob) {
-        console.log("MP3 Blob is a valid Blob object");
-        console.log("MP3 Blob Size:", mp3Blob.size);
-        console.log("MP3 Blob type:", mp3Blob.type);
-      } else {
-        console.error("Invalid MP3 Blob:", mp3Blob);
-      }
-
-      if (mp3Blob && mp3Blob.size > 0 && mp3Blob.type === "audio/mpeg") {
-        console.log("Valid audio data received.");
-        onRecordingComplete(mp3Blob); // Send the valid blob to the parent
-      } else {
-        console.error("Invalid MP3 Blob:", mp3Blob);
-        console.error("Recording failed or generated empty audio.");
-      }
-    },
-
-    onError: (error) => console.log("RECORDING ERROR!", error),
-  });
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const streamRef = useRef(null);
 
   useEffect(() => {
     if (resetRecorderFlag) {
-      if (recorder.state === "recording") {
-        recorder.stop(); // Stop recording if it's in progress
-      }
-      recorder.mp3Urls.length = 0; // Clear the recorded audio
+      stopRecording();
     }
-  }, [resetRecorderFlag, recorder]);
+  }, [resetRecorderFlag]);
 
-  const viewInitial = (
-    <button type="button" onClick={recorder.start}>
-      start recording
-    </button>
-  );
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      streamRef.current = stream;
 
-  const viewRecording = (
-    <>
-      <button type="button" onClick={recorder.stop}>
-        stop recording ({(recorder.time / 1000.0).toFixed(1) + "s"})
-      </button>
-      <button type="button" onClick={recorder.pause}>
-        pause
-      </button>
-    </>
-  );
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
 
-  const viewPaused = (
-    <>
-      <button type="button" onClick={recorder.stop}>
-        stop recording ({(recorder.time / 1000.0).toFixed(1) + "s"})
-      </button>
-      <button type="button" onClick={recorder.resume}>
-        resume
-      </button>
-    </>
-  );
+      mediaRecorderRef.current.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: "audio/wav",
+        });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        setAudioURL(audioUrl);
+        onRecordingComplete(audioBlob);
+      };
 
-  const viewError = (
-    <>
-      {viewInitial}
-      <div>Error occurred! {recorder.errorStr}</div>
-    </>
-  );
+      mediaRecorderRef.current.start();
+      setRecording(true);
+    } catch (error) {
+      console.error("Error accessing the microphone", error);
+      setErrorMessage("Failed to access microphone.");
+    }
+  };
+
+  useEffect(() => {
+    if (resetRecorderFlag) {
+      stopRecording(); // Stop the current recording if reset flag is true
+      setAudioURL(""); // Clear the audio URL when resetting
+    }
+  }, [resetRecorderFlag]); // Watch for resetRecorderFlag changes
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && recording) {
+      mediaRecorderRef.current.stop(); // Stop the recorder
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop()); // Stop the microphone stream
+      }
+      setRecording(false); // Set recording state to false
+    }
+  };
 
   return (
     <div>
-      <SimpleAudioRecorder
-        {...recorder.getProps()}
-        viewInitial={viewInitial}
-        viewRecording={viewRecording}
-        viewPaused={viewPaused}
-        viewError={viewError}
-      />
-      {recorder.mp3Urls.toReversed().map((url) => (
-        <div key={url}>
-          <audio src={url} controls />
+      {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+      {recording ? (
+        <div>
+          <button type="button" onClick={stopRecording}>
+            Stop recording
+          </button>
         </div>
-      ))}
+      ) : (
+        <div>
+          <button type="button" onClick={startRecording}>
+            Start recording
+          </button>
+        </div>
+      )}
+      {audioURL && (
+        <div>
+          <audio controls>
+            <source src={audioURL} type="audio/wav" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      )}
     </div>
   );
 }
