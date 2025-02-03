@@ -24,7 +24,7 @@ The Toddler Words Learning Application is a web-based platform designed to help 
 **Places**
 **Clothing**
 **Things**
-(Note: The functionality to save files correctly is still under development.)
+(Note: The functionality to save images correctly is still under development.)
 
 # Functionality
 
@@ -33,12 +33,12 @@ The Toddler Words Learning Application is a web-based platform designed to help 
 The word written out.
 A corresponding image or color.
 A button to play the audio for the word (default audio is pulled from the API: Dictionary API).
-Customization: Users can add their own words, images, and audio to enrich the learning experience, though the feature is currently being debugged for proper file-saving functionality.
+Customization: Users can add their own words, images, and audio to enrich the learning experience, though the feature is currently being debugged for proper image-saving functionality.
 
 # Future Plans
 
 **Alphabet:** Plans to include the alphabet with audio, though the file-saving issue must be resolved first.
-**Bug Fixes:** Work is underway to correct the file-saving function for uploaded audio files.
+**Bug Fixes:** Work is underway to correct the image-saving function for uploaded audio files.
 
 # Inspiration
 
