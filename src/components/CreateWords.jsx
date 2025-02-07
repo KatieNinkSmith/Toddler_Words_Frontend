@@ -32,45 +32,26 @@ function CreateWords() {
   }
 
   const handleImageChange = async (e) => {
+    console.log(e.target.files[0]);
     const image = e.target.files[0];
     if (image) {
+      const storageRef = ref(
+        storage,
+        "images/" + Date.now() + "-" + image.name
+      );
       try {
-        // Create an image element and load the file into it
-        const img = new Image();
-        const objectURL = URL.createObjectURL(image);
-        img.src = objectURL;
+        const snapshot = await uploadBytes(storageRef, image);
+        console.log("Uploaded a file!", snapshot.ref);
 
-        // Wait for the image to load
-        await new Promise((resolve) => {
-          img.onload = resolve;
-        });
-
-        // Create a canvas to draw the image and convert it to jpeg format
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-
-        // Convert the image on the canvas to a jpeg Blob (quality 0.8, can adjust quality)
-        const jpegBlob = await new Promise((resolve) => {
-          canvas.toBlob(resolve, "image/jpeg", 0.8); // Convert to jpeg with a quality of 0.8
-        });
-
-        // Create a new file from the jpeg Blob
-        const jpegFile = new File([jpegBlob], `${Date.now()}.jpeg`, {
-          type: "image/jpeg",
-        });
-
-        // Upload the jpeg file to Firebase Storage
-        const storageRef = ref(storage, `images/${jpegFile.name}`);
-        const snapshot = await uploadBytes(storageRef, jpegFile);
-        const imageURL = await getDownloadURL(snapshot.ref());
+        const imageURL = await getDownloadURL(snapshot.ref); // Wait for the URL to resolve
+        console.log("Image uploaded successfully, URL:", imageURL);
 
         setFormData((prevFormData) => ({
           ...prevFormData,
           image: imageURL,
+          imageURL: "", // Set the image URL properly
         }));
+        console.log(formData); // Check the updated form data
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -167,6 +148,8 @@ function CreateWords() {
         </select>
         <br />
         <label>Upload an image file</label>
+        <br />
+        <label>We currently support jpe or jpeg image files</label>
         <br />
         <input type="file" onChange={handleImageChange} />
         <br />
