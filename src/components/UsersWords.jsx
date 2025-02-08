@@ -112,6 +112,7 @@ function UsersWords() {
       setWords([]); // Clear if no category is selected
     }
   };
+  console.log(user.image);
   //TODO figure out audio recording editing without having to delete the word
   // TODO search by category
   return (
@@ -141,7 +142,7 @@ function UsersWords() {
                 <br />
                 Category: {word.category}
                 <br />
-                Image:{" "}
+                Image:
                 {word.image ? (
                   <img
                     style={{ width: "80px" }}
