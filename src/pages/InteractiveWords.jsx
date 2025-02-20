@@ -47,7 +47,8 @@ function InteractiveWords() {
   const backgroundColor = getBackgroundColor();
 
   if (loading) return <div>Loading...</div>;
-  if (!words || words.length === 0) return <div>No words available.</div>;
+  if (!words || words.length === 0)
+    return <div>No words available please allow our database to load.</div>;
 
   console.log("Current Word Index:", currentWordIndex);
   console.log("Words List:", words);
