@@ -130,6 +130,7 @@ function UsersWords() {
         <option value="places">Places</option>
         <option value="things">Things</option>
         <option value="clothing">Clothing</option>
+        {/* <option value="colors">colors</option> */}
       </select>
       <br />
       <button onClick={submitSearch}>Search</button>

@@ -141,10 +141,10 @@ function CreateWords() {
           <option>things</option>
           <option>clothing</option>
           {/* options added for admin addition
-            <option>counting</option>
-            <option>food</option>
-            <option>animals</option>
-            <option>colors</option> */}
+          <option>counting</option>
+          <option>food</option>
+          <option>animals</option>
+          <option>colors</option> */}
         </select>
         <br />
         <label>Upload an image file</label>
